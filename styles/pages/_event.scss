@@ -1,0 +1,51 @@
+.eventCard__Wrapper{
+    padding: 20px;
+    background-color: $white;
+    box-shadow: 0 0 5px 2px $shadow;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            h4{
+                font-weight: 600;
+                font-size: 16px;
+            }
+            p{
+                font-size: 14px;
+                color: $gray;
+            }
+        }
+    }
+    .main {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        img{
+            align-self: center;
+            margin-top: 10px;
+        }
+    }
+    .footer {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+        }
+        .right{            
+            cursor: pointer;
+        }
+    }
+}

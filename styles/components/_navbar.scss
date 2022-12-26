@@ -1,0 +1,74 @@
+.navbar__Wrapper{
+    .left {
+        h4 {
+            font-size: 30px;
+            font-weight: 600;
+            word-spacing: 5px;
+        }
+    }
+    .right {
+        form {
+            display: flex;
+            align-items: center;
+            background-color: $white;
+            box-shadow: 0 0 5px 2px $shadow;
+            padding: 5px 7px;
+            border-radius: 5px;
+            cursor: pointer;
+            input {
+                outline: none;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+            code {
+                background-color: #efefef;
+                padding: 5px 7px;
+                border-radius: 5px;
+            }
+        }
+        button {
+            box-shadow: 0 0 5px 2px $shadow;
+            background-color: $white;
+        }
+        .dropdown {
+            position: relative;
+            .menu {
+                position: absolute;
+                top: 100%;
+                right: 0%;
+                width: 300px;
+                background-color: $white;
+                box-shadow: 0 0 8px 4px $shadow;
+                z-index: 10;
+                margin-top: 1rem;
+                padding: 10px;
+                .item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 7px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    &:hover {
+                        color: $primary!important;
+                    }
+                }
+                .notification {
+                    padding: 7px;
+                    cursor: pointer;
+                    h4 {
+                        font-weight: 600;
+                    }
+                    p{
+                        font-size: 14px;
+                        color: #707070;
+                    }
+                    &:hover, &:hover p {
+                        color: $primary!important;
+                    }
+                }
+            }
+        }
+    }
+}

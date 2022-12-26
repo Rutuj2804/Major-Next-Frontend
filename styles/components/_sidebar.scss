@@ -1,0 +1,106 @@
+.sidebar__Wrapper {
+    background-color: $primary;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 300px;
+    height: 100vh;
+    z-index: 99;
+    transition: all .2s linear;
+    overflow-y: scroll;
+    // overflow-x: hidden;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+    
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+    
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    &:hover .pannel {
+        visibility: visible;
+    }
+    .middle {
+        margin: 20px;
+        margin-top: 30px;
+        font-weight: 600;
+        color: $white;
+        span {
+            margin: 10px;
+            font-size: 12px;
+        }
+        .navlink {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px;
+            transition: all 0.2s linear;
+            &:hover {
+                background-color: $white;
+                color: $primary;
+            }
+        }
+        .active {
+            background-color: $white;
+            color: $primary;
+        }
+    }
+}
+
+.toggle-layout .sidebar__Wrapper{
+    width: 60px;
+    .middle {
+        margin: 20px 10px;
+        margin-top: 40px;
+        font-weight: 600;
+        color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h6{
+            display: none;
+        }
+        .category {
+            display: none;
+        }
+        .navlink {
+            padding: 5px;
+            margin: 10px 0;
+            transition: all 0.2s linear;
+            &:hover {
+                background-color: $white;
+                color: $primary;
+            }
+        }
+    }
+}
+.pannel{
+    position: fixed;
+    top: 70px;
+    left: calc(300px - 15px);
+    height: 30px;
+    width: 30px;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 2px $shadow;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    z-index: 100;
+}
+
+.toggle-layout .pannel {
+    left: 45px;
+}

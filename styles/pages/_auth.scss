@@ -1,0 +1,85 @@
+.auth__Wrapper {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .auth__Block {
+        padding: 20px;
+        background-color: $white;
+        box-shadow: 0 0 5px 2px $shadow;
+        .header {
+            padding: 20px 0;
+            text-align: center;
+            h4 {
+                font-size: 34px;
+                font-family: 'Comfortaa', cursive;
+                font-weight: 700;
+                color: $primary;
+            }
+            p{
+                font-size: 14px;
+                color: $gray;
+            }
+        }
+        form {
+            .input__Div {
+                min-width: 320px;
+                position: relative;
+                margin: 20px 0;
+                input {
+                    width: 100%;
+                    outline: none;
+                    border: 1px solid $gray;
+                    padding: 7px 15px;
+                    border-radius: 3px;
+                    &:valid ~ label, &:focus ~ label {
+                        top: -8px;
+                        left: 7px;
+                        background-color: $white;
+                        padding: 0 3px;
+                        font-size: 12px;
+                        transition: all .2s linear;
+                    }
+                }
+                label {
+                    position: absolute;
+                    top: 7px;
+                    left: 15px;
+                    pointer-events: none;
+                }
+            }
+            .dialouge {
+                display: flex;
+                justify-content: space-between;
+                p {
+                    font-size: 14px;
+                    cursor: pointer;
+                }
+            }
+            .buttons{
+                text-align: center;
+                margin: 10px 0;
+                button {
+                    background-color: $primary;
+                    text-transform: capitalize;
+                    color: $white;
+                    padding: 7px 20px;
+                }
+            }
+        }
+        .endMessage {
+            text-align: center;
+            margin-top: 10px;
+            p {
+                a {
+                    color: $primary;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

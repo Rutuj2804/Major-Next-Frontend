@@ -1,0 +1,21 @@
+.logo{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: $white;
+    font-weight: 700;
+    font-family: 'Comfortaa', cursive;
+    span {
+        font-size: 30px;
+        color: $white;
+        font-weight: 700;
+        font-family: 'Comfortaa', cursive;
+    }
+}
+
+.toggle-layout .logo span{
+    display: none;
+}

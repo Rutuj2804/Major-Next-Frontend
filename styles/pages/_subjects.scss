@@ -1,0 +1,26 @@
+.subjectsCards__Wrapper {
+    padding: 10px;
+    .header {
+        h4 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        p{
+            margin: 10px 0;
+            font-size: 14px;
+            color: $gray;
+        }
+    }
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        button {
+            margin-top: 20px;
+            background-color: $primary;
+            color: $white;
+            padding: 7px 20px;
+            text-transform: capitalize;
+        }
+    }
+}

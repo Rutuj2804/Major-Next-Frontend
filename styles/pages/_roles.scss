@@ -1,0 +1,49 @@
+.roles__Wrapper {
+    .roles_definition {
+        .roles_sticky{
+            position: sticky;
+            top: 10px;
+            left: inherit;
+        }
+        .role{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            h4{
+                font-weight: 600;
+            }
+            &:hover {
+                background-color: $light;
+            }
+        }
+    }
+    .single {
+        padding: 10px;
+        h6{
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .options {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            .desc {
+                h5 {
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+                p {
+                    font-size: 14px;
+                    color: $gray;
+                }
+            }
+        }
+    }
+    hr {
+        margin: 20px 0;
+    }
+}

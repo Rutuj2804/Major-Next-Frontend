@@ -1,0 +1,32 @@
+.cards__Dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $white;
+    box-shadow: 0 0 5px 2px $shadow;
+    border-radius: 5px;
+    padding: 20px;
+    .left{
+        h4{
+            font-size: 30px;
+            font-weight: 600;
+            color: $black;
+        }
+        h6{
+            font-size: 18px;
+            font-weight: 600;
+            color: $black;
+        }
+        p{
+            display: flex;
+            color: $black;
+            align-items: center;
+            span{
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                font-weight: 600;
+            }
+        }
+    }
+}
