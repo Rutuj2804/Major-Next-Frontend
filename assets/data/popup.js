@@ -1,0 +1,3 @@
+export const CODES = {
+    "CREATE_UNIVERISTY": "CREATE_UNIVERISTY"
+}

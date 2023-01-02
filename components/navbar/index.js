@@ -3,21 +3,24 @@ import React, { useState } from "react";
 import {
 	BellIcon,
 	Cog6ToothIcon,
-	KeyIcon,
 	MagnifyingGlassIcon,
 	UserIcon,
 } from "@heroicons/react/24/outline";
 import {
 	BoltIcon,
 	MoonIcon,
-	SunIcon,
+	KeyIcon,
+	ArrowLeftOnRectangleIcon,
 	WrenchScrewdriverIcon,
 	UserIcon as UserSolid,
+	PlusIcon,
 } from "@heroicons/react/24/solid";
 import { Fullscreen } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDisplayMode } from "../../store/settings";
+import { toggleDisplayMode, setPopup } from "../../store/settings";
 import { useRouter } from "next/router";
+import { logout } from "../../store/auth";
+import { CODES } from "../../assets/data/popup";
 
 const notificationData = [
 	{ name: "Jon Snow", message: "Posted on his social media" },
@@ -109,14 +112,14 @@ const Navbar = () => {
 							</div>
 							<div
 								className="item"
-								onClick={() => router.push("/auth/login")}
+								onClick={() => dispatch(setPopup(CODES.CREATE_UNIVERISTY))}
 							>
-								<h6>Login Page</h6>
-								<BoltIcon className="h-5 w-5 text-balck" />
+								<h6>Create University</h6>
+								<PlusIcon className="h-5 w-5 text-balck" />
 							</div>
 							<div
 								className="item"
-								onClick={() => router.push("/auth/register")}
+								onClick={() => router.push("/register")}
 							>
 								<h6>Register Page</h6>
 								<WrenchScrewdriverIcon className="h-5 w-5 text-balck" />
@@ -129,6 +132,13 @@ const Navbar = () => {
 							>
 								<h6>Forget Password Page</h6>
 								<KeyIcon className="h-5 w-5 text-balck" />
+							</div>
+							<div
+								className="item"
+								onClick={() => dispatch(logout())}
+							>
+								<h6>Logout</h6>
+								<ArrowLeftOnRectangleIcon className="h-5 w-5 text-balck" />
 							</div>
 						</div>
 					)}

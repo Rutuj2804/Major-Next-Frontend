@@ -1,0 +1,51 @@
+.addUniversity__Wrapper {
+    padding: 20px;
+    background-color: $white;
+    border-radius: 10px;
+    min-width: 350px;
+    .addUniversity__Top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left h4{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    .addUniversity__Bottom {
+        margin-top: 15px;
+        form {
+            .inputDiv {
+                position: relative;
+                input{
+                    width: 100%;
+                    padding: 10px 15px;
+                    border: 1px solid $gray;
+                    outline: none;
+                    border-radius: 5px;
+                    &:valid ~ label, &:focus ~ label {
+                        top: -8px;
+                        left: 7px;
+                        background-color: $white;
+                        padding: 0 3px;
+                        font-size: 12px;
+                        transition: all .2s linear;
+                    }
+                }
+                label{
+                    position: absolute;
+                    top: 10px;
+                    left: 15px;
+                    pointer-events: none;
+                }
+            }
+            button {
+                margin-top: 15px;
+                background-color: $primary;
+                text-transform: capitalize;
+                color: $white;
+                padding: 7px 20px;
+            }
+        }
+    }
+}

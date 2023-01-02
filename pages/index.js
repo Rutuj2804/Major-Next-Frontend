@@ -21,28 +21,28 @@ import { setHeader } from "../store/settings"
 const cardsData = [
 	{
 		count: 299,
-		name: "Meetings",
+		name: "Classes",
 		percentage: 29,
 		isDown: false,
 		icon: <CreditCardIcon className="h-10 w-10 text-green-500" />,
 	},
 	{
 		count: 20,
-		name: "Events",
+		name: "Students",
 		percentage: 10,
 		isDown: true,
 		icon: <CalendarIcon className="h-10 w-10 text-red-500" />,
 	},
 	{
 		count: 587,
-		name: "Emails",
+		name: "Faculties",
 		percentage: 17,
 		isDown: false,
 		icon: <EnvelopeIcon className="h-10 w-10 text-blue-500" />,
 	},
 	{
 		count: "188k",
-		name: "Spendings",
+		name: "Events",
 		percentage: 50,
 		isDown: true,
 		icon: <BanknotesIcon className="h-10 w-10 text-yellow-500" />,
