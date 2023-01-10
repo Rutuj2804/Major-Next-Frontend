@@ -180,6 +180,29 @@ export const get_my_classes = createAsyncThunk(
 	}
 );
 
+export const get_class_by_id = createAsyncThunk(
+	"university/getClassById",
+	async (id, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/class/${id}`, 
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const universitySlice = createSlice({
 	name: "auth",
 	initialState,
@@ -276,6 +299,18 @@ export const universitySlice = createSlice({
 			state.classes = state.classes.filter(c=>c._id!==actions.payload._id)
 		});
 		builder.addCase(delete_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(get_class_by_id.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(get_class_by_id.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.class = actions.payload
+		});
+		builder.addCase(get_class_by_id.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});

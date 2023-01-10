@@ -17,7 +17,8 @@
         form {
             .inputDiv {
                 position: relative;
-                input{
+                margin-bottom: 15px;
+                input, select{
                     width: 100%;
                     padding: 10px 15px;
                     border: 1px solid $gray;
@@ -40,7 +41,6 @@
                 }
             }
             button {
-                margin-top: 15px;
                 background-color: $primary;
                 text-transform: capitalize;
                 color: $white;

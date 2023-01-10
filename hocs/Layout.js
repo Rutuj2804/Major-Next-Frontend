@@ -10,6 +10,7 @@ import { CODES } from "../assets/data/popup"
 import { setPopup } from "../store/settings";
 import AddClass from "../components/popups/AddClass";
 import UpdateClass from "../components/popups/UpdateClass";
+import AddStudent from "../components/popups/AddStudent";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -42,6 +43,7 @@ const Layout = ({ children }) => {
 					{popup === CODES.CREATE_UNIVERISTY &&  <AddUniversity />}
 					{popup === CODES.ADD_CLASS &&  <AddClass />}
 					{popup === CODES.UPDATE_CLASS &&  <UpdateClass />}
+					{popup === CODES.ADD_STUDENT &&  <AddStudent />}
 				</div>
 			) : null}
 		</div>

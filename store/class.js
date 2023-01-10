@@ -18,7 +18,9 @@ export const get_my_subjects = createAsyncThunk(
 			const config = {
 				headers: {
 					"Content-type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
 				},
 			};
 
@@ -41,7 +43,9 @@ export const get_my_notes = createAsyncThunk(
 			const config = {
 				headers: {
 					"Content-type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
 				},
 			};
 
@@ -64,7 +68,9 @@ export const get_my_assignments = createAsyncThunk(
 			const config = {
 				headers: {
 					"Content-type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
 				},
 			};
 
@@ -87,7 +93,9 @@ export const get_all_students = createAsyncThunk(
 			const config = {
 				headers: {
 					"Content-type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
 				},
 			};
 
@@ -110,7 +118,9 @@ export const get_my_students = createAsyncThunk(
 			const config = {
 				headers: {
 					"Content-type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
 				},
 			};
 
@@ -126,75 +136,182 @@ export const get_my_students = createAsyncThunk(
 	}
 );
 
+export const manual_add_student_to_class = createAsyncThunk(
+	"class/manualAddStudentToClass",
+	async ({ id, email }, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const body = { email };
+
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/manualAdd_students/${id}`,
+				body,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const delete_student_from_class = createAsyncThunk(
+	"class/deleteStudentFromClass",
+	async ({ id, students }, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const body = JSON.stringify({ students });
+
+			const res = await axios.put(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/add_students/${id}`,
+				body,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const classSlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {
-	},
+	reducers: {},
 	extraReducers(builder) {
 		builder.addCase(get_my_subjects.pending, (state) => {
 			state.isloading = true;
 		});
 		builder.addCase(get_my_subjects.fulfilled, (state, actions) => {
 			state.isloading = false;
-            state.subjects = actions.payload
+			state.subjects = actions.payload;
 		});
 		builder.addCase(get_my_subjects.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-        builder.addCase(get_my_notes.pending, (state) => {
+		builder.addCase(get_my_notes.pending, (state) => {
 			state.isloading = true;
 		});
 		builder.addCase(get_my_notes.fulfilled, (state, actions) => {
 			state.isloading = false;
-            state.notes = actions.payload
+			state.notes = actions.payload;
 		});
 		builder.addCase(get_my_notes.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-        builder.addCase(get_my_assignments.pending, (state) => {
+		builder.addCase(get_my_assignments.pending, (state) => {
 			state.isloading = true;
 		});
 		builder.addCase(get_my_assignments.fulfilled, (state, actions) => {
 			state.isloading = false;
-            state.assignments = actions.payload
+			state.assignments = actions.payload;
 		});
 		builder.addCase(get_my_assignments.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-        builder.addCase(get_all_students.pending, (state) => {
+		builder.addCase(get_all_students.pending, (state) => {
 			state.isloading = true;
 		});
 		builder.addCase(get_all_students.fulfilled, (state, actions) => {
 			state.isloading = false;
-            state.students = actions.payload
+			state.students = actions.payload;
 		});
 		builder.addCase(get_all_students.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-        builder.addCase(get_my_students.pending, (state) => {
+		builder.addCase(get_my_students.pending, (state) => {
 			state.isloading = true;
 		});
 		builder.addCase(get_my_students.fulfilled, (state, actions) => {
 			state.isloading = false;
-            state.students = actions.payload
+			state.students = actions.payload;
 		});
 		builder.addCase(get_my_students.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
+
+		builder.addCase(manual_add_student_to_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(
+			manual_add_student_to_class.fulfilled,
+			(state, actions) => {
+				state.isloading = false;
+				state.students = state.students.filter((c) => {
+					if (c._id === actions.payload._id) {
+						c.students = actions.payload.students;
+						c.faculty = actions.payload.faculty;
+						return c;
+					} else {
+						return c;
+					}
+				});
+			}
+		);
+		builder.addCase(
+			manual_add_student_to_class.rejected,
+			(state, action) => {
+				state.isloading = false;
+				state.error = action.payload;
+			}
+		);
+
+		builder.addCase(delete_student_from_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(
+			delete_student_from_class.fulfilled,
+			(state, actions) => {
+				state.isloading = false;
+				state.students = state.students.filter((c) => {
+					if (c._id === actions.payload._id) {
+						c.students = actions.payload.students;
+						c.faculty = actions.payload.faculty;
+						return c;
+					} else {
+						return c;
+					}
+				});
+			}
+		);
+		builder.addCase(
+			delete_student_from_class.rejected,
+			(state, action) => {
+				state.isloading = false;
+				state.error = action.payload;
+			}
+		);
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const {  } = classSlice.actions;
+export const {} = classSlice.actions;
 
 export default classSlice.reducer;
