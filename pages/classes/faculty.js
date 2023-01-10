@@ -7,7 +7,7 @@ import data from "../../assets/data/mockdata.json";
 import Paper from "../../components/paper"
 import { get_my_classes } from "../../store/university";
 import { Button } from "@mui/material";
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid"
+import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/solid"
 import Link from "next/link";
 
 const FacultyClasses = () => {

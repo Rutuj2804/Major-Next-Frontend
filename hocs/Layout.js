@@ -11,6 +11,7 @@ import { setPopup } from "../store/settings";
 import AddClass from "../components/popups/AddClass";
 import UpdateClass from "../components/popups/UpdateClass";
 import AddStudent from "../components/popups/AddStudent";
+import AddFaculty from "../components/popups/AddFaculty";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -44,6 +45,7 @@ const Layout = ({ children }) => {
 					{popup === CODES.ADD_CLASS &&  <AddClass />}
 					{popup === CODES.UPDATE_CLASS &&  <UpdateClass />}
 					{popup === CODES.ADD_STUDENT &&  <AddStudent />}
+					{popup === CODES.ADD_FACULTY &&  <AddFaculty />}
 				</div>
 			) : null}
 		</div>

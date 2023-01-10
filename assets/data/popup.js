@@ -3,4 +3,5 @@ export const CODES = {
     "ADD_CLASS": "ADD_CLASS",
     "UPDATE_CLASS": "UPDATE_CLASS",
     "ADD_STUDENT": "ADD_STUDENT",
+    "ADD_FACULTY": "ADD_FACULTY",
 }

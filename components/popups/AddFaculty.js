@@ -2,10 +2,10 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Button, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { get_all_students, manual_add_student_to_class } from "../../store/class";
+import { get_all_students, manual_add_faculty_to_class } from "../../store/class";
 import { setPopup } from "../../store/settings";
 
-const AddStudent = () => {
+const AddFaculty = () => {
 	const [name, setName] = useState("");
 	
 	const university = useSelector((state) => state.university.university._id);
@@ -21,7 +21,7 @@ const AddStudent = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch(manual_add_student_to_class({ email: name, id: classId }));
+		dispatch(manual_add_faculty_to_class({ email: name, id: classId }));
         setName("")
         dispatch(setPopup(null))
 	};
@@ -29,7 +29,7 @@ const AddStudent = () => {
 	return (
 		<div className="addClass__Wrapper" onClick={(e) => e.stopPropagation()}>
 			<div className="top">
-				<h4>Add Student</h4>
+				<h4>Add Faculty</h4>
 				<IconButton onClick={() => dispatch(setPopup(null))}>
 					<XMarkIcon className="h-5 w-5 text-black" />
 				</IconButton>
@@ -43,7 +43,7 @@ const AddStudent = () => {
 							onChange={(e) => setName(e.target.value)}
 							required
 						/>
-						<label>Student Email</label>
+						<label>Faculty Email</label>
 					</div>
 					<div className="inputDiv">
 						<select onChange={e=>setClassId(e.target.value)} value={classId}>
@@ -55,7 +55,7 @@ const AddStudent = () => {
 						</select>
 					</div>
 					<div>
-						<Button type="submit">Add student</Button>
+						<Button type="submit">Add faculty</Button>
 					</div>
 				</form>
 			</div>
@@ -63,4 +63,4 @@ const AddStudent = () => {
 	);
 };
 
-export default AddStudent;
+export default AddFaculty;
