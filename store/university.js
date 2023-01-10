@@ -3,6 +3,8 @@ import axios from "axios";
 
 const initialState = {
 	universities: [],
+	classes: [],
+	class: {},
 	university: {},
 	isloading: false,
 	error: "",
@@ -57,10 +59,134 @@ export const create_university = createAsyncThunk(
 	}
 );
 
+export const create_class = createAsyncThunk(
+	"university/createClass",
+	async ({name, university, router}, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const body = { name: name, university: university }
+
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/create`, body, 
+				config
+			);
+
+			router.push(`/classes/${res.data._id}`)
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const update_class = createAsyncThunk(
+	"university/updateClass",
+	async ({id, name, university}, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const body = { name: name, university: university }
+
+			const res = await axios.put(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/update/${id}`, body, 
+				config
+			);
+
+			return { _id: id, name: name };
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const delete_class = createAsyncThunk(
+	"university/deleteClass",
+	async (id, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.delete(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/${id}`, 
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const get_all_classes = createAsyncThunk(
+	"university/getAllClasses",
+	async (id, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/classes/${id}`, 
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const get_my_classes = createAsyncThunk(
+	"university/getMyClasses",
+	async (id, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/faculty/classes/${id}`, 
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const universitySlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
+		setClass (state, action) {
+			state.class = action.payload
+		}
 	},
 	extraReducers(builder) {
 		builder.addCase(get_all_universities.pending, (state) => {
@@ -87,10 +213,76 @@ export const universitySlice = createSlice({
 			state.isloading = false;
 			state.error = action.payload;
 		});
+
+		builder.addCase(get_all_classes.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(get_all_classes.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.classes = actions.payload
+		});
+		builder.addCase(get_all_classes.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(get_my_classes.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(get_my_classes.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.classes = actions.payload
+		});
+		builder.addCase(get_my_classes.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(create_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(create_class.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.class = actions.payload
+		});
+		builder.addCase(create_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(update_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(update_class.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.classes = state.classes.filter(c=>{
+				if(c._id === actions.payload._id) {
+					c.name = actions.payload.name
+					return c
+				} else
+				return c
+			})
+		});
+		builder.addCase(update_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(delete_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(delete_class.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.classes = state.classes.filter(c=>c._id!==actions.payload._id)
+		});
+		builder.addCase(delete_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const {  } = universitySlice.actions;
+export const { setClass } = universitySlice.actions;
 
 export default universitySlice.reducer;

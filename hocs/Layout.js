@@ -8,6 +8,8 @@ import { get_all_universities } from "../store/university";
 import AddUniversity from "../components/popups/AddUniversity";
 import { CODES } from "../assets/data/popup"
 import { setPopup } from "../store/settings";
+import AddClass from "../components/popups/AddClass";
+import UpdateClass from "../components/popups/UpdateClass";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -38,6 +40,8 @@ const Layout = ({ children }) => {
 			{popup ? (
 				<div className="popups" onClick={()=>dispatch(setPopup(null))}>
 					{popup === CODES.CREATE_UNIVERISTY &&  <AddUniversity />}
+					{popup === CODES.ADD_CLASS &&  <AddClass />}
+					{popup === CODES.UPDATE_CLASS &&  <UpdateClass />}
 				</div>
 			) : null}
 		</div>

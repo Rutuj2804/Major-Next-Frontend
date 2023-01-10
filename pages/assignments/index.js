@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setHeader } from "../../store/settings";
 import data from "../../assets/data/emaildata.json";
 import Paper from "../../components/paper"
+import { get_my_assignments } from "../../store/class";
 
 const valueGetter = (params) => {
     return `${params.row.title} - ${params.row.text} ${params.row.text} ${params.row.text}`;
@@ -26,6 +27,7 @@ const Assignments = () => {
 
 	useEffect(() => {
 		dispatch(setHeader("Assignments"));
+		dispatch(get_my_assignments())
 	}, []);
 
 	return (

@@ -2,15 +2,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setHeader, setPopup } from "../../store/settings";
+import { setHeader } from "../../store/settings";
+import data from "../../assets/data/mockdata.json";
 import Paper from "../../components/paper"
-import { delete_class, get_all_classes, setClass } from "../../store/university";
+import { get_my_classes } from "../../store/university";
 import { Button } from "@mui/material";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid"
 import Link from "next/link";
-import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { CODES } from "../../assets/data/popup";
 
-const Classes = () => {
+const FacultyClasses = () => {
 	const dispatch = useDispatch();
     const university = useSelector(state=>state.university.university._id)
     const classData = useSelector(state=>state.university.classes)
@@ -20,7 +20,7 @@ const Classes = () => {
 	}, []);
 
     useEffect(()=>{
-        dispatch(get_all_classes(university))
+        dispatch(get_my_classes(university))
     }, [university])
 
     const filteredClass = []
@@ -34,11 +34,6 @@ const Classes = () => {
 
         filteredClass.push(x)
     })
-
-    const setPopupForUpdate = (params) => {
-        dispatch(setPopup(CODES.UPDATE_CLASS))
-        dispatch(setClass({ _id: params.row.id, name: params.row.name, university: university }))
-    }
 
     const columns = [
         { field: "id", headerName: "ID", width: 90, disableColumnMenu: true },
@@ -94,7 +89,7 @@ const Classes = () => {
             disableColumnMenu: true,
             align: "center",
             headerAlign: "center",
-            renderCell: (params) => <><Button onClick={()=>setPopupForUpdate(params)} className="table-buttons bg-green-500" startIcon={<PencilIcon className="h-4 w-4 text-white" />}>Update</Button></>
+            renderCell: (params) => <><Button className="table-buttons bg-green-500" startIcon={<PencilIcon className="h-4 w-4 text-white" />}>Update</Button></>
         },
     ];
 
@@ -104,12 +99,12 @@ const Classes = () => {
 				<title>Classes</title>
 			</Head>
 			<main>
-                <div className="flex justify-between items-center mt-4 breadcrumps">
+                {/* <div className="flex justify-between items-center mt-4 breadcrumps">
                     <div></div>
                     <div className="">
-                        <Button startIcon={<PlusIcon className="h-5 w-5 text-white" />} onClick={()=>dispatch(setPopup(CODES.ADD_CLASS))}>Add Class</Button>
+                        <Button startIcon={<PlusIcon className="h-5 w-5 text-white" />}>Add Class</Button>
                     </div>
-                </div>
+                </div> */}
                 <div className="mt-4">
                     <Paper className="h-[800px]">
                         <DataGrid columns={columns} rows={filteredClass} checkboxSelection rowsPerPageOptions={[]} />
@@ -120,4 +115,4 @@ const Classes = () => {
 	);
 };
 
-export default Classes;
+export default FacultyClasses;

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setHeader } from "../../store/settings";
 import data from "../../assets/data/mockdata.json";
 import Paper from "../../components/paper"
-import { get_all_students } from "../../store/class";
+import { get_all_students, get_my_students } from "../../store/class";
 
 const columns = [
     { field: "id", headerName: "ID", width: 90, disableColumnMenu: true },
@@ -47,7 +47,7 @@ const columns = [
     },
 ];
 
-const Students = () => {
+const FacultyStudents = () => {
 	const dispatch = useDispatch();
     const university = useSelector(state=>state.university.university._id)
     const students = useSelector(state=>state.class.students)
@@ -57,7 +57,7 @@ const Students = () => {
 	}, []);
 
     useEffect(()=>{
-        dispatch(get_all_students(university))
+        dispatch(get_my_students(university))
     }, [university])
 
     const filteredStudents = []
@@ -94,4 +94,4 @@ const Students = () => {
 	);
 };
 
-export default Students;
+export default FacultyStudents;

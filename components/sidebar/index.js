@@ -66,12 +66,12 @@ const sidebarData = [
 			{
 				name: "Classes",
 				icon: <UsersIcon className="h-5 w-5" />,
-				link: "/classes",
+				link: "/classes/faculty",
 			},
 			{
 				name: "Students",
 				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/students",
+				link: "/students/faculty",
 			},
 		],
 	},

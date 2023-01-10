@@ -15,6 +15,8 @@
 @import "./components/message-area";
 @import "./components/inbox";
 @import "./components/add-university";
+@import "./components/breadcrumps";
+@import "./components/add-class";
 
 @import "./pages/subjects";
 @import "./pages/utilities";
@@ -31,4 +33,14 @@
 
 body {
     background-color: #fafafa;
+}
+
+.table-buttons {
+    padding: 7px 20px;
+    background-color: $primary;
+    text-transform: capitalize;
+    color: $white!important;
+    &:hover {
+        background-color: $primary;
+    }
 }

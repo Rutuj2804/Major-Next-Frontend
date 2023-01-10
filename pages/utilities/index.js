@@ -7,13 +7,14 @@ import {
 } from "@heroicons/react/24/solid";
 import Cards from "../../components/cards";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setHeader } from "../../store/settings";
 import MyResponsivePie from "../../components/charts/NivoPieChart";
 import MyResponsiveBar from "../../components/charts/NivoBarChart";
 import Paper from "../../components/paper";
 import NotesCard from "./NotesCard";
 import SubjectCard from "../subjects/Cards";
+import { get_my_notes, get_my_subjects } from "../../store/class";
 
 const cardsData = [
 	{
@@ -49,8 +50,12 @@ const cardsData = [
 const Utilities = () => {
 	const dispatch = useDispatch();
 
+	const subjects = useSelector(state=>state.class.subjects)
+
 	useEffect(() => {
 		dispatch(setHeader("Utilities"));
+		dispatch(get_my_notes())
+		dispatch(get_my_subjects())
 	}, []);
 
 	return (
@@ -90,24 +95,13 @@ const Utilities = () => {
 					</Paper>
 				</div>
 				<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-					<Paper>
-						<SubjectCard />
-					</Paper>
-					<Paper>
-						<SubjectCard />
-					</Paper>
-					<Paper>
-						<SubjectCard />
-					</Paper>
-					<Paper>
-						<SubjectCard />
-					</Paper>
-					<Paper>
-						<SubjectCard />
-					</Paper>
-					<Paper>
-						<SubjectCard />
-					</Paper>
+					{
+						subjects.map(s=>(
+							<Paper key={s._id}>
+								<SubjectCard name={s.name} id={s._id} />
+							</Paper>
+						))
+					}
 				</div>
 			</main>
 		</div>

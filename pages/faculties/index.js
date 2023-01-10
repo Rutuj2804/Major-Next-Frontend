@@ -3,7 +3,6 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setHeader } from "../../store/settings";
-import data from "../../assets/data/mockdata.json";
 import Paper from "../../components/paper"
 import { get_all_students } from "../../store/class";
 
@@ -34,8 +33,8 @@ const columns = [
         disableColumnMenu: true
     },
     {
-        field: "faculties",
-        headerName: "Faculties",
+        field: "students",
+        headerName: "Students",
         width: 200,
         disableColumnMenu: true
     },
@@ -47,7 +46,7 @@ const columns = [
     },
 ];
 
-const Students = () => {
+const FacultyStudents = () => {
 	const dispatch = useDispatch();
     const university = useSelector(state=>state.university.university._id)
     const students = useSelector(state=>state.class.students)
@@ -65,14 +64,14 @@ const Students = () => {
     students.filter(s=>{
         let c = s.name
         let t = s.createdAt
-        for (let i = 0; i < s.students.length; i++) {
+        for (let i = 0; i < s.faculty.length; i++) {
             const x = {}
-            x["id"] = s.students[i]._id + c
-            x["first_name"] = s.students[i].firstname
-            x["last_name"] = s.students[i].lastname
-            x["email"] = s.students[i].email
+            x["id"] = s.faculty[i]._id + c
+            x["first_name"] = s.faculty[i].firstname
+            x["last_name"] = s.faculty[i].lastname
+            x["email"] = s.faculty[i].email
             x["class"] = c
-            x["faculties"] = s.faculty?.length
+            x["students"] = s.students?.length
             x["created_at"] = t
             filteredStudents.push(x)
         }
@@ -94,4 +93,4 @@ const Students = () => {
 	);
 };
 
-export default Students;
+export default FacultyStudents;
