@@ -12,10 +12,14 @@ import AddClass from "../components/popups/AddClass";
 import UpdateClass from "../components/popups/UpdateClass";
 import AddStudent from "../components/popups/AddStudent";
 import AddFaculty from "../components/popups/AddFaculty";
+import AddRoles from "../components/popups/AddRoles";
+import { get_my_role } from "../store/roles";
+import AssignRole from "../components/popups/AssignRole";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
 	const popup = useSelector((state) => state.settings.popup);
+	const university = useSelector((state) => state.university.university._id);
 
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -32,6 +36,10 @@ const Layout = ({ children }) => {
 		}
 	}, [isAuthenticated]);
 
+	useEffect(()=>{
+		dispatch(get_my_role(university));
+	}, [university])
+
 	return (
 		<div className={sidebar ? "layout" : "toggle-layout"}>
 			<Sidebar />
@@ -46,6 +54,8 @@ const Layout = ({ children }) => {
 					{popup === CODES.UPDATE_CLASS &&  <UpdateClass />}
 					{popup === CODES.ADD_STUDENT &&  <AddStudent />}
 					{popup === CODES.ADD_FACULTY &&  <AddFaculty />}
+					{popup === CODES.ADD_ROLES &&  <AddRoles />}
+					{popup === CODES.ASSIGN_ROLES &&  <AssignRole />}
 				</div>
 			) : null}
 		</div>

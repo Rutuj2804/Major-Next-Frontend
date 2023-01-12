@@ -73,6 +73,11 @@ const sidebarData = [
 				icon: <CalendarDaysIcon className="h-5 w-5" />,
 				link: "/students/faculty",
 			},
+			{
+				name: "Subjects",
+				icon: <UsersIcon className="h-5 w-5" />,
+				link: "/subjects/faculty",
+			},
 		],
 	},
 	{
@@ -102,6 +107,11 @@ const sidebarData = [
 				name: "Roles",
 				icon: <CalendarDaysIcon className="h-5 w-5" />,
 				link: "/roles",
+			},
+			{
+				name: "Roles Assigned",
+				icon: <CalendarDaysIcon className="h-5 w-5" />,
+				link: "/roles/assign",
 			},
 		],
 	},
