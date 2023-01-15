@@ -9,11 +9,11 @@ import { Button } from "@mui/material";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { CODES } from "../../assets/data/popup";
 import { useRouter } from "next/router";
-import { get_all_roles_assigned } from "../../store/roles";
+import { delete_assigned_role, get_all_roles_assigned } from "../../store/roles";
 
 const AssignRoles = () => {
 	const dispatch = useDispatch();
-	const university = useSelector((state) => state.university.university._id);
+	const university = useSelector((state) => state.university.university?._id);
 	const assigned = useSelector((state) => state.roles.assigned);
 
 	const router = useRouter()
@@ -63,7 +63,7 @@ const AssignRoles = () => {
 			disableColumnMenu: true,
             align: "center",
             headerAlign: "center",
-            renderCell: (params) => <><Button onClick={()=>dispatch(delete_student_from_class({ id: params.row.classID, students: [ params.row.studentId ] }))} className="table-buttons bg-red-500" startIcon={<TrashIcon className="h-4 w-4 text-white" />}>Delete</Button></>
+            renderCell: (params) => <><Button onClick={()=>dispatch(delete_assigned_role(params.row._id))} className="table-buttons bg-red-500" startIcon={<TrashIcon className="h-4 w-4 text-white" />}>Delete</Button></>
 		},
 	];
 

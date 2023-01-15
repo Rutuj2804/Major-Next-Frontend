@@ -19,6 +19,10 @@ const AssignRole = () => {
 		dispatch(get_all_roles(university));
 	}, [university]);
 
+	useEffect(()=>{
+		setRoleID(roles[0]?._id)
+	}, [roles])
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 		dispatch(assign_role({ user: name, role: roleID, id: university }));

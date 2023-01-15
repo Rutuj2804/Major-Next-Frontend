@@ -19,7 +19,7 @@ import AssignRole from "../components/popups/AssignRole";
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
 	const popup = useSelector((state) => state.settings.popup);
-	const university = useSelector((state) => state.university.university._id);
+	const university = useSelector((state) => state.university.university?._id);
 
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

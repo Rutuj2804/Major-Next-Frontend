@@ -46,6 +46,29 @@ export const define_new_role = createAsyncThunk(
 	}
 );
 
+export const update_role_by_id = createAsyncThunk(
+	"roles/updateRole",
+	async ({ formData, id }, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+                    "Authorization":`Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.put(
+				`${process.env.NEXT_PUBLIC_API_URL}/administration/roles/update/${id}`,
+				formData,
+				config
+			);
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const get_my_role = createAsyncThunk(
 	"roles/getMyRole",
 	async (id, thunkApi) => {
@@ -140,6 +163,29 @@ export const assign_role = createAsyncThunk(
 	}
 );
 
+export const delete_assigned_role = createAsyncThunk(
+	"roles/deleteAssignedRole",
+	async (id, thunkApi) => {
+		try {
+
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+                    "Authorization":`Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.delete(
+				`${process.env.NEXT_PUBLIC_API_URL}/administration/assigned/delete/${id}`,
+				config
+			);
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,
@@ -203,8 +249,33 @@ export const authSlice = createSlice({
 		});
 		builder.addCase(assign_role.fulfilled, (state, actions) => {
 			state.isloading = false;
+			state.assigned = [...state.assigned, actions.payload]
 		});
 		builder.addCase(assign_role.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+        builder.addCase(update_role_by_id.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(update_role_by_id.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.success = "Successfully updated the role"
+		});
+		builder.addCase(update_role_by_id.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+        builder.addCase(delete_assigned_role.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(delete_assigned_role.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.assigned = state.assigned.filter(a=>a._id!==actions.payload._id)
+		});
+		builder.addCase(delete_assigned_role.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
