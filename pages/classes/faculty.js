@@ -107,7 +107,7 @@ const FacultyClasses = () => {
                 </div> */}
                 <div className="mt-4">
                     <Paper className="h-[800px]">
-                        <DataGrid columns={columns} rows={filteredClass} checkboxSelection rowsPerPageOptions={[]} />
+                        <DataGrid columns={columns} rows={filteredClass} checkboxSelection disableSelectionOnClick rowsPerPageOptions={[]} />
                     </Paper>
                 </div>
 			</main>

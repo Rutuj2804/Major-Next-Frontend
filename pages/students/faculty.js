@@ -30,7 +30,7 @@ const FacultyStudents = () => {
 		let t = s.createdAt;
 		for (let i = 0; i < s.students.length; i++) {
 			const x = {};
-			x["id"] = s.students[i]._id + c;
+			x["id"] = s.students[i]._id + ' ' + cid;
 			x["studentId"] = s.students[i]._id;
 			x["first_name"] = s.students[i].firstname;
 			x["last_name"] = s.students[i].lastname;
@@ -103,7 +103,7 @@ const FacultyStudents = () => {
                 </div>
                 <div className="mt-4">
                     <Paper className="h-[800px]">
-                        <DataGrid columns={columns} rows={filteredStudents} checkboxSelection rowsPerPageOptions={[]} />
+                        <DataGrid columns={columns} rows={filteredStudents} checkboxSelection={false} disableSelectionOnClick  rowsPerPageOptions={[]} />
                     </Paper>
                 </div>
 			</main>

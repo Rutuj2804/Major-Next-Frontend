@@ -4,6 +4,7 @@ import {
 	CalendarIcon,
 	CreditCardIcon,
 	EnvelopeIcon,
+	PlusIcon,
 } from "@heroicons/react/24/solid";
 import Cards from "../../components/cards";
 import Head from "next/head";
@@ -15,6 +16,8 @@ import Paper from "../../components/paper";
 import NotesCard from "./NotesCard";
 import SubjectCard from "../subjects/Cards";
 import { get_my_notes, get_my_subjects } from "../../store/class";
+import { Button } from "@mui/material";
+import { CODES } from "../../assets/data/popup";
 
 const cardsData = [
 	{
@@ -50,12 +53,12 @@ const cardsData = [
 const Utilities = () => {
 	const dispatch = useDispatch();
 
-	const subjects = useSelector(state=>state.class.subjects)
+	const subjects = useSelector((state) => state.class.subjects);
 
 	useEffect(() => {
 		dispatch(setHeader("Utilities"));
-		dispatch(get_my_notes())
-		dispatch(get_my_subjects())
+		dispatch(get_my_notes());
+		dispatch(get_my_subjects());
 	}, []);
 
 	return (
@@ -64,44 +67,27 @@ const Utilities = () => {
 				<title>Utilities</title>
 			</Head>
 			<main>
+				<div className="flex justify-between items-center mt-4 breadcrumps">
+					<div></div>
+					<div className="flex gap-4">
+						<Button
+							startIcon={
+								<PlusIcon className="h-5 w-5 text-white" />
+							}
+							onClick={() =>
+								dispatch(setPopup(CODES.ADD_STUDENT))
+							}
+						>
+							Add Notes
+						</Button>
+					</div>
+				</div>
 				<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
-					{cardsData.map((c, i) => (
-						<Cards
-							key={i}
-							count={c.count}
-							name={c.name}
-							percentage={c.percentage}
-							isDown={c.isDown}
-							icon={c.icon}
-						/>
+					{subjects.map((s) => (
+						<Paper key={s._id}>
+							<SubjectCard name={s.name} id={s._id} />
+						</Paper>
 					))}
-				</div>
-				<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-					<Paper className="h-[500px]">
-						<MyResponsivePie />
-					</Paper>
-					<Paper className="h-[500px]">
-						<MyResponsiveBar />
-					</Paper>
-					<Paper className="utilities__Scroll h-[500px]">
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-						<NotesCard />
-					</Paper>
-				</div>
-				<div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-					{
-						subjects.map(s=>(
-							<Paper key={s._id}>
-								<SubjectCard name={s.name} id={s._id} />
-							</Paper>
-						))
-					}
 				</div>
 			</main>
 		</div>

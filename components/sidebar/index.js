@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../logo";
 import {
 	CalendarDaysIcon,
@@ -29,113 +29,103 @@ const NavLink = ({ name, icon, link }) => {
 	);
 };
 
-const sidebarData = [
-	{
-		name: "Student General",
-		links: [
-			{
-				name: "Dashboard",
-				icon: <Squares2X2Icon className="h-5 w-5" />,
-				link: "/",
-			},
-			{
-				name: "Subjects",
-				icon: <UsersIcon className="h-5 w-5" />,
-				link: "/subjects",
-			},
-			{
-				name: "Utilities",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/utilities",
-			},
-			{
-				name: "Assignments",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/assignments",
-			},
-		],
-	},
-	{
-		name: "Faculty General",
-		links: [
-			{
-				name: "Dashboard",
-				icon: <Squares2X2Icon className="h-5 w-5" />,
-				link: "/",
-			},
-			{
-				name: "Classes",
-				icon: <UsersIcon className="h-5 w-5" />,
-				link: "/classes/faculty",
-			},
-			{
-				name: "Students",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/students/faculty",
-			},
-			{
-				name: "Subjects",
-				icon: <UsersIcon className="h-5 w-5" />,
-				link: "/subjects/faculty",
-			},
-		],
-	},
-	{
-		name: "Admin General",
-		links: [
-			{
-				name: "Dashboard",
-				icon: <Squares2X2Icon className="h-5 w-5" />,
-				link: "/",
-			},
-			{
-				name: "Classes",
-				icon: <UsersIcon className="h-5 w-5" />,
-				link: "/classes",
-			},
-			{
-				name: "Students",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/students",
-			},
-			{
-				name: "Faculties",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/faculties",
-			},
-			{
-				name: "Roles",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/roles",
-			},
-			{
-				name: "Roles Assigned",
-				icon: <CalendarDaysIcon className="h-5 w-5" />,
-				link: "/roles/assign",
-			},
-		],
-	},
-	{
-		name: "Communication",
-		links: [
-			{
-				name: "Messaging",
-				icon: <PaperAirplaneIcon className="h-5 w-5" />,
-				link: "/messaging",
-			},
-			{
-				name: "Events",
-				icon: <HeartIcon className="h-5 w-5" />,
-				link: "/events",
-			},
-		],
-	},
-];
-
 const Sidebar = () => {
 	const dispatch = useDispatch();
 
 	const sidebar = useSelector((state) => state.settings.sidebar);
+
+	const myRole = useSelector((state) => state.roles.role?.roles);
+
+	const [generalLinks] = useState([
+		{
+			name: "Dashboard",
+			icon: <Squares2X2Icon className="h-5 w-5" />,
+			link: "/",
+		},
+	]);
+
+	const sidebarData = [
+		{
+			name: "General",
+			links: generalLinks,
+		},
+		{
+			name: "Communication",
+			links: [
+				{
+					name: "Messaging",
+					icon: <PaperAirplaneIcon className="h-5 w-5" />,
+					link: "/messaging",
+				},
+				{
+					name: "Events",
+					icon: <HeartIcon className="h-5 w-5" />,
+					link: "/events",
+				},
+			],
+		},
+	];
+
+	useEffect(() => {
+		if (myRole) {
+			if (myRole.subjects !== 2) {
+				generalLinks.push({
+					name: "Subjects",
+					icon: <UsersIcon className="h-5 w-5" />,
+					link: "/subjects",
+				});
+			}
+			if (myRole.students !== 2) {
+				generalLinks.push({
+					name: "Students",
+					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					link: "/students",
+				});
+			}
+			if (myRole.faculty !== 2) {
+				generalLinks.push({
+					name: "Faculties",
+					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					link: "/faculties",
+				});
+			}
+			if (myRole.classes !== 2) {
+				generalLinks.push({
+					name: "Classes",
+					icon: <UsersIcon className="h-5 w-5" />,
+					link: "/classes",
+				});
+			}
+			if (myRole.utilities !== 2) {
+				generalLinks.push({
+					name: "Utilities",
+					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					link: "/utilities",
+				});
+			}
+			if (myRole.assignments !== 2) {
+				generalLinks.push({
+					name: "Assignments",
+					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					link: "/assignments",
+				});
+			}
+			if (myRole.roles !== 2) {
+				generalLinks.push(
+					{
+						name: "Roles",
+						icon: <CalendarDaysIcon className="h-5 w-5" />,
+						link: "/roles",
+					},
+					{
+						name: "Roles Assigned",
+						icon: <CalendarDaysIcon className="h-5 w-5" />,
+						link: "/roles/assign",
+					}
+				);
+			}
+		}
+	}, [myRole]);
 
 	return (
 		<div>
@@ -144,19 +134,28 @@ const Sidebar = () => {
 					<Logo />
 				</div>
 				<div className="middle">
-					{sidebarData.map((a, j) => (
-						<div key={j}>
-							<span className="category">{a.name}</span>
-							{a.links.map((b, i) => (
-								<NavLink
-									key={i}
-									name={b.name}
-									icon={b.icon}
-									link={b.link}
-								/>
-							))}
-						</div>
-					))}
+					<div>
+						<span className="category">{sidebarData[0].name}</span>
+						{generalLinks.map((b, i) => (
+							<NavLink
+								key={i}
+								name={b.name}
+								icon={b.icon}
+								link={b.link}
+							/>
+						))}
+					</div>
+					<div>
+						<span className="category">{sidebarData[1].name}</span>
+						{sidebarData[1].links.map((b, i) => (
+							<NavLink
+								key={i}
+								name={b.name}
+								icon={b.icon}
+								link={b.link}
+							/>
+						))}
+					</div>
 				</div>
 			</div>
 			<div className="pannel" onClick={() => dispatch(toggleSidebar())}>

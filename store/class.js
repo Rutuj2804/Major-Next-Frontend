@@ -164,6 +164,35 @@ export const manual_add_student_to_class = createAsyncThunk(
 	}
 );
 
+export const bulk_add_student_to_class = createAsyncThunk(
+	"class/bulkAddStudentToClass",
+	async ({ file, id }, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const body = new FormData();
+			body.append("file", file, file.name);
+
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/add_students/${id}`,
+				body,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const manual_add_faculty_to_class = createAsyncThunk(
 	"class/manualAddFacultyToClass",
 	async ({ id, email }, thunkApi) => {
@@ -181,6 +210,35 @@ export const manual_add_faculty_to_class = createAsyncThunk(
 
 			const res = await axios.post(
 				`${process.env.NEXT_PUBLIC_API_URL}/class/manualAdd_faculty/${id}`,
+				body,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const bulk_add_faculty_to_class = createAsyncThunk(
+	"class/bulkAddFacultyToClass",
+	async ({ file, id }, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const body = new FormData();
+			body.append("file", file, file.name);
+
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/add_faculty/${id}`,
 				body,
 				config
 			);
@@ -365,6 +423,29 @@ export const classSlice = createSlice({
 			}
 		);
 
+		builder.addCase(bulk_add_student_to_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(
+			bulk_add_student_to_class.fulfilled,
+			(state, actions) => {
+				state.isloading = false;
+				state.students = state.students.filter((c) => {
+					if (c._id === actions.payload._id) {
+						c.students = actions.payload.students;
+						c.faculty = actions.payload.faculty;
+						return c;
+					} else {
+						return c;
+					}
+				});
+			}
+		);
+		builder.addCase(bulk_add_student_to_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
 		builder.addCase(delete_student_from_class.pending, (state) => {
 			state.isloading = true;
 		});
@@ -383,13 +464,10 @@ export const classSlice = createSlice({
 				});
 			}
 		);
-		builder.addCase(
-			delete_student_from_class.rejected,
-			(state, action) => {
-				state.isloading = false;
-				state.error = action.payload;
-			}
-		);
+		builder.addCase(delete_student_from_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
 
 		builder.addCase(delete_faculty_from_class.pending, (state) => {
 			state.isloading = true;
@@ -409,13 +487,10 @@ export const classSlice = createSlice({
 				});
 			}
 		);
-		builder.addCase(
-			delete_faculty_from_class.rejected,
-			(state, action) => {
-				state.isloading = false;
-				state.error = action.payload;
-			}
-		);
+		builder.addCase(delete_faculty_from_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
 	},
 });
 

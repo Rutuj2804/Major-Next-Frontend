@@ -128,7 +128,7 @@ const FacultyStudents = () => {
 			<main>
 				<div className="flex justify-between items-center mt-4 breadcrumps">
 					<div></div>
-					<div className="">
+					<div className="flex gap-4">
 						<Button
 							startIcon={
 								<PlusIcon className="h-5 w-5 text-white" />
@@ -139,6 +139,16 @@ const FacultyStudents = () => {
 						>
 							Add Faculty
 						</Button>
+						<Button
+							startIcon={
+								<PlusIcon className="h-5 w-5 text-white" />
+							}
+							onClick={() =>
+								dispatch(setPopup(CODES.BULK_ADD_FACULTY))
+							}
+						>
+							Bulk Add
+						</Button>
 					</div>
 				</div>
 				<div className="mt-4">
@@ -146,7 +156,8 @@ const FacultyStudents = () => {
 						<DataGrid
 							columns={columns}
 							rows={filteredStudents}
-							checkboxSelection
+							checkboxSelection={false}
+							disableSelectionOnClick 
 							rowsPerPageOptions={[]}
 						/>
 					</Paper>

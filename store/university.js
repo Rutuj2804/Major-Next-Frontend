@@ -134,6 +134,29 @@ export const delete_class = createAsyncThunk(
 	}
 );
 
+export const bulk_delete_class = createAsyncThunk(
+	"university/bulkDeleteClass",
+	async (body, thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem("study-auth")}`,
+				},
+			};
+
+			const res = await axios.put(
+				`${process.env.NEXT_PUBLIC_API_URL}/class/delete`, body,
+				config
+			);
+
+			return {res, body};
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const get_all_classes = createAsyncThunk(
 	"university/getAllClasses",
 	async (id, thunkApi) => {
@@ -299,6 +322,18 @@ export const universitySlice = createSlice({
 			state.classes = state.classes.filter(c=>c._id!==actions.payload._id)
 		});
 		builder.addCase(delete_class.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(bulk_delete_class.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(bulk_delete_class.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.classes = state.classes.filter(c=>!actions.payload.body.classes.includes(c._id))
+		});
+		builder.addCase(bulk_delete_class.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});

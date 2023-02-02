@@ -15,7 +15,7 @@ const Students = () => {
 	const university = useSelector((state) => state.university.university._id);
 	const students = useSelector((state) => state.class.students);
 
-	const router = useRouter()
+	const router = useRouter();
 
 	useEffect(() => {
 		dispatch(setHeader("Students"));
@@ -33,7 +33,7 @@ const Students = () => {
 		let t = s.createdAt;
 		for (let i = 0; i < s.students.length; i++) {
 			const x = {};
-			x["id"] = s.students[i]._id + c;
+			x["id"] = s.students[i]._id + " " + cid;
 			x["studentId"] = s.students[i]._id;
 			x["first_name"] = s.students[i].firstname;
 			x["last_name"] = s.students[i].lastname;
@@ -77,18 +77,46 @@ const Students = () => {
 			headerName: "Go to class",
 			width: 200,
 			disableColumnMenu: true,
-            align: "center",
-            headerAlign: "center",
-            renderCell: (params) => <><Button className="table-buttons" onClick={()=>router.push(`/classes/${params.row.classID}`)}>Open class</Button></>
+			align: "center",
+			headerAlign: "center",
+			renderCell: (params) => (
+				<>
+					<Button
+						className="table-buttons"
+						onClick={() =>
+							router.push(`/classes/${params.row.classID}`)
+						}
+					>
+						Open class
+					</Button>
+				</>
+			),
 		},
 		{
 			field: "delete",
 			headerName: "Delete student from class",
 			width: 200,
 			disableColumnMenu: true,
-            align: "center",
-            headerAlign: "center",
-            renderCell: (params) => <><Button onClick={()=>dispatch(delete_student_from_class({ id: params.row.classID, students: [ params.row.studentId ] }))} className="table-buttons bg-red-500" startIcon={<TrashIcon className="h-4 w-4 text-white" />}>Delete</Button></>
+			align: "center",
+			headerAlign: "center",
+			renderCell: (params) => (
+				<>
+					<Button
+						onClick={() =>
+							dispatch(
+								delete_student_from_class({
+									id: params.row.classID,
+									students: [params.row.studentId],
+								})
+							)
+						}
+						className="table-buttons bg-red-500"
+						startIcon={<TrashIcon className="h-4 w-4 text-white" />}
+					>
+						Delete
+					</Button>
+				</>
+			),
 		},
 	];
 
@@ -99,17 +127,40 @@ const Students = () => {
 			</Head>
 			<main>
 				<div className="flex justify-between items-center mt-4 breadcrumps">
-                    <div></div>
-                    <div className="">
-                        <Button startIcon={<PlusIcon className="h-5 w-5 text-white" />} onClick={()=>dispatch(setPopup(CODES.ADD_STUDENT))}>Add Student</Button>
-                    </div>
-                </div>
+					<div></div>
+					<div className="flex gap-4">
+						<Button
+							startIcon={
+								<PlusIcon className="h-5 w-5 text-white" />
+							}
+							onClick={() =>
+								dispatch(setPopup(CODES.ADD_STUDENT))
+							}
+						>
+							Add Student
+						</Button>
+						<Button
+							startIcon={
+								<PlusIcon className="h-5 w-5 text-white" />
+							}
+							onClick={() =>
+								dispatch(setPopup(CODES.BULK_ADD_STUDENT))
+							}
+						>
+							Bulk Add
+						</Button>
+					</div>
+				</div>
 				<div className="mt-4">
 					<Paper className="h-[800px]">
 						<DataGrid
 							columns={columns}
 							rows={filteredStudents}
-							checkboxSelection
+							checkboxSelection={false}
+							disableSelectionOnClick
+							onSelectionModelChange={(newSelectionModel) => {
+								console.log(newSelectionModel);
+							}}
 							rowsPerPageOptions={[]}
 						/>
 					</Paper>

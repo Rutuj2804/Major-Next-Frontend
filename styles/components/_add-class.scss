@@ -15,6 +15,20 @@
     .bottom {
         margin-top: 15px;
         form {
+            .dragDiv {
+                position: relative;
+                margin-bottom: 15px;
+                border: 1px solid $gray;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                p{
+                    font-size: 14px;
+                    color: $gray;
+                }
+            }
             .inputDiv {
                 position: relative;
                 margin-bottom: 15px;
