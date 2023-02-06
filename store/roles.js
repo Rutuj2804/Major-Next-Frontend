@@ -4,7 +4,11 @@ import axios from "axios";
 const initialState = {
 	roles: [],
 	assigned: [],
-	role: {},
+	role: {
+		roles: {
+			name: ""
+		}
+	},
 	isloading: false,
 	error: "",
 	success: "",

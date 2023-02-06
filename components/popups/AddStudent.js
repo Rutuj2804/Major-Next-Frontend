@@ -11,9 +11,11 @@ const AddStudent = () => {
 	const university = useSelector((state) => state.university.university._id);
 	const students = useSelector((state) => state.class.students);
 
-	const [classId, setClassId] = useState(students[0]._id);
+	const [classId, setClassId] = useState(students[0]?._id);
 	
 	const dispatch = useDispatch();
+
+	useEffect(()=>setClassId(students[0]?._id), [students])
 
 	useEffect(() => {
 		dispatch(get_all_students(university));

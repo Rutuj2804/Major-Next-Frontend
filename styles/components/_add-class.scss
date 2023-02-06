@@ -32,12 +32,13 @@
             .inputDiv {
                 position: relative;
                 margin-bottom: 15px;
-                input, select{
+                input, select, textarea{
                     width: 100%;
                     padding: 10px 15px;
                     border: 1px solid $gray;
                     outline: none;
                     border-radius: 5px;
+                    max-height: 15vh;
                     &:valid ~ label, &:focus ~ label {
                         top: -8px;
                         left: 7px;
@@ -52,6 +53,13 @@
                     top: 10px;
                     left: 15px;
                     pointer-events: none;
+                }
+                .up{
+                    top: -8px;
+                    left: 7px;
+                    background-color: $white;
+                    padding: 0 3px;
+                    font-size: 12px;
                 }
             }
             button {

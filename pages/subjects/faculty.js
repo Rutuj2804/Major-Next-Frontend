@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Paper from "../../components/paper"
-import { get_my_subjects } from "../../store/class";
+import { get_my_subjects } from "../../store/subjects";
 import Cards from "./Cards";
 
 const Subjects = () => {
 
 	const dispatch = useDispatch()
 
-	const subjects = useSelector(state=>state.class.subjects)
+	const subjects = useSelector(state=>state.subjects.subjects)
 
 	useEffect(()=>{
 		dispatch(get_my_subjects())

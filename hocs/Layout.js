@@ -19,6 +19,8 @@ import { CircularProgress } from "@mui/material";
 import BulkAddStudent from "../components/popups/BulkAddStudent";
 import BulkAddFaculty from "../components/popups/BulkAddFaculty";
 import AddSubject from "../components/popups/AddSubject";
+import AddNotes from "../components/popups/AddNotes";
+import AddAssignment from "../components/popups/AddAssignment";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -66,6 +68,8 @@ const Layout = ({ children }) => {
 					{popup === CODES.BULK_ADD_STUDENT &&  <BulkAddStudent />}
 					{popup === CODES.BULK_ADD_FACULTY &&  <BulkAddFaculty />}
 					{popup === CODES.ADD_SUBJECT &&  <AddSubject />}
+					{popup === CODES.ADD_NOTES &&  <AddNotes />}
+					{popup === CODES.ADD_ASSIGNMENTS&&  <AddAssignment />}
 				</div>
 			) : null}
 

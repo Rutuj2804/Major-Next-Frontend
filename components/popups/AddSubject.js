@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_all_students, manual_add_student_to_class } from "../../store/class";
 import { setPopup } from "../../store/settings";
+import { add_subject } from "../../store/subjects";
 
 const AddStudent = () => {
 	const [name, setName] = useState("");
@@ -19,9 +20,11 @@ const AddStudent = () => {
 		dispatch(get_all_students(university));
 	}, [university]);
 
+	useEffect(()=>setClassId(students[0]?._id), [students])
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch(manual_add_student_to_class({ email: name, id: classId }));
+		dispatch(add_subject({ name: name, id: classId }));
         setName("")
         dispatch(setPopup(null))
 	};
@@ -55,7 +58,7 @@ const AddStudent = () => {
 						</select>
 					</div>
 					<div>
-						<Button type="submit">Add student</Button>
+						<Button type="submit">Add subject</Button>
 					</div>
 				</form>
 			</div>

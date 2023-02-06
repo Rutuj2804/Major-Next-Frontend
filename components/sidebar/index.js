@@ -36,7 +36,7 @@ const Sidebar = () => {
 
 	const myRole = useSelector((state) => state.roles.role?.roles);
 
-	const [generalLinks] = useState([
+	const [generalLinks, setGeneralLinks] = useState([
 		{
 			name: "Dashboard",
 			icon: <Squares2X2Icon className="h-5 w-5" />,
