@@ -117,7 +117,7 @@ const Utilities = () => {
 			headerAlign: "center",
 			renderCell: (params) => (
 				<>
-					<Link href={`/assignments`}>
+					<Link target="_blank" href={`${process.env.NEXT_PUBLIC_API_URL + '/' + params.row.file}`}>
 						<Button className="table-buttons">Open</Button>
 					</Link>
 				</>

@@ -5,6 +5,8 @@ const initialState = {
     header: "",
     darkMode: "light",
     popup: null,
+    success: "",
+    error: ""
 };
 
 // Actual Slice
@@ -29,11 +31,17 @@ export const settingsSlice = createSlice({
         },
         setPopup(state, action) {
             state.popup = action.payload
+        },
+        setSuccess(state, action) {
+            state.success = action.payload
+        },
+        setError(state, action) {
+            state.error = action.payload
         }
     },
 });
 
-export const { toggleSidebar, setHeader, toggleDisplayMode, setPopup } =
+export const { toggleSidebar, setHeader, toggleDisplayMode, setPopup, setSuccess, setError } =
     settingsSlice.actions;
 
 export default settingsSlice.reducer;

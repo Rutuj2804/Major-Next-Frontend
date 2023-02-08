@@ -17,12 +17,16 @@
 @import "./components/add-university";
 @import "./components/breadcrumps";
 @import "./components/add-class";
+@import "./components/report-messages";
+@import "./components/lecture-post";
+@import "./components/video-player";
 
 @import "./pages/subjects";
 @import "./pages/utilities";
 @import "./pages/event";
 @import "./pages/roles";
 @import "./pages/auth";
+@import "./pages/watch";
 
 * {
     margin: 0;

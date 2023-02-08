@@ -1,0 +1,54 @@
+.lecturePost{
+    padding: 10px;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            h6{
+                font-weight: 600;
+                margin-bottom: 0%;
+            }
+            p{
+                font-size: 14px;
+                color: $gray;
+            }
+        }
+    }
+    .lecture__body {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 10px;
+        .left{
+            flex: 1;
+            h4{
+                font-weight: 600;
+            }
+            p{
+                span {
+                    font-weight: 600;
+                }
+            }
+            .subject {
+                background: $yellow;
+                border-radius: 4px;
+                font-size: 14px;
+                padding: 2px 4px;
+                color: $white;
+            }
+        }
+        .right{
+            button {
+                background-color: $primary;
+                color: $white;
+                font-size: 14px;
+                text-transform: capitalize;
+            }
+        }
+    }
+}

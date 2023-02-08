@@ -42,6 +42,11 @@ const Sidebar = () => {
 			icon: <Squares2X2Icon className="h-5 w-5" />,
 			link: "/",
 		},
+		{
+			name: "Lectures",
+			icon: <Squares2X2Icon className="h-5 w-5" />,
+			link: "/lectures",
+		},
 	]);
 
 	const sidebarData = [
@@ -68,49 +73,49 @@ const Sidebar = () => {
 
 	useEffect(() => {
 		if (myRole) {
-			if (myRole.subjects !== 2) {
+			if (myRole.subjects !== 2 && generalLinks.findIndex(v=>v.link === "/subjects") === -1) {
 				generalLinks.push({
 					name: "Subjects",
 					icon: <UsersIcon className="h-5 w-5" />,
 					link: "/subjects",
 				});
 			}
-			if (myRole.students !== 2) {
+			if (myRole.students !== 2 && generalLinks.findIndex(v=>v.link === "/students") === -1) {
 				generalLinks.push({
 					name: "Students",
 					icon: <CalendarDaysIcon className="h-5 w-5" />,
 					link: "/students",
 				});
 			}
-			if (myRole.faculty !== 2) {
+			if (myRole.faculty !== 2 && generalLinks.findIndex(v=>v.link === "/faculties") === -1) {
 				generalLinks.push({
 					name: "Faculties",
 					icon: <CalendarDaysIcon className="h-5 w-5" />,
 					link: "/faculties",
 				});
 			}
-			if (myRole.classes !== 2) {
+			if (myRole.classes !== 2 && generalLinks.findIndex(v=>v.link === "/classes") === -1) {
 				generalLinks.push({
 					name: "Classes",
 					icon: <UsersIcon className="h-5 w-5" />,
 					link: "/classes",
 				});
 			}
-			if (myRole.utilities !== 2) {
+			if (myRole.utilities !== 2 && generalLinks.findIndex(v=>v.link === "/utilities") === -1) {
 				generalLinks.push({
 					name: "Utilities",
 					icon: <CalendarDaysIcon className="h-5 w-5" />,
 					link: "/utilities",
 				});
 			}
-			if (myRole.assignments !== 2) {
+			if (myRole.assignments !== 2 && generalLinks.findIndex(v=>v.link === "/assignments") === -1) {
 				generalLinks.push({
 					name: "Assignments",
 					icon: <CalendarDaysIcon className="h-5 w-5" />,
 					link: "/assignments",
 				});
 			}
-			if (myRole.roles !== 2) {
+			if (myRole.roles !== 2 && generalLinks.findIndex(v=>v.link === "/roles") === -1 && generalLinks.findIndex(v=>v.link === "/roles/assign") === -1) {
 				generalLinks.push(
 					{
 						name: "Roles",

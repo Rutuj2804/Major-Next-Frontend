@@ -2,25 +2,39 @@ import { DataGrid } from "@mui/x-data-grid";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setHeader, setPopup } from "../../store/settings";
+import { setError, setHeader, setPopup, setSuccess } from "../../store/settings";
 import Paper from "../../components/paper";
-import { delete_assignments, get_my_assignments } from "../../store/assignments";
+import { delete_assignments, get_my_assignments, setAssignmentError, setAssignmentId, setAssignmentSuccess } from "../../store/assignments";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { CloudArrowUpIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { CODES } from "../../assets/data/popup";
-
-const valueGetter = (params) => {
-	const file = params.row.file.split("\\");
-	return file[file.length - 1];
-};
+import { useRouter } from "next/router";
 
 const Assignments = () => {
 	const dispatch = useDispatch();
 	const assignments = useSelector((state) => state.assignments.assignments);
+	const success = useSelector((state) => state.assignments.success);
+	const error = useSelector((state) => state.assignments.error);
+
+	const router = useRouter()
 
 	const [selectedRows, setSelectedRows] = useState([]);
+
+	useEffect(()=>{
+		if(success)
+		dispatch(setSuccess(success))
+
+		dispatch(setAssignmentSuccess(""))
+	}, [success])
+
+	useEffect(()=>{
+		if(error)
+		dispatch(setError(error))
+
+		dispatch(setAssignmentError(""))
+	}, [error])
 
 	useEffect(() => {
 		dispatch(setHeader("Assignments"));
@@ -121,8 +135,32 @@ const Assignments = () => {
 					<Button
 						className="table-buttons bg-green-500"
 						startIcon={<CloudArrowUpIcon className="h-4 w-4 text-white" />}
+						onClick={()=>{
+							dispatch(setAssignmentId(params.row._id))
+							dispatch(setPopup(CODES.UPLOAD_ASSIGNMENTS))
+						}}
 					>
 						Upload
+					</Button>
+				</>
+			),
+			disableColumnMenu: true,
+		},
+		{
+			field: "report",
+			headerName: "Assignment Report",
+			width: 200,
+			disableColumnMenu: true,
+			align: "center",
+			headerAlign: "center",
+			renderCell: (params) => (
+				<>
+					<Button
+						className="table-buttons"
+						startIcon={<CloudArrowUpIcon className="h-4 w-4 text-white" />}
+						onClick={()=>router.push(`/assignments/${params.row._id}`)}
+					>
+						Submissions
 					</Button>
 				</>
 			),

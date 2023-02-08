@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
 	assignments: [],
 	isloading: false,
+	id: null,
 	error: "",
 	success: "",
 };
@@ -94,10 +95,73 @@ export const delete_assignments = createAsyncThunk(
 	}
 );
 
+export const submit_assignments = createAsyncThunk(
+	"assignments/submitAssignments",
+	async ({ id, file},thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "multipart/form-data",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const formData = new FormData()
+			formData.append("file", file);
+
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/assignments/submit/${id}`, formData,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
+export const get_submitted_assignments = createAsyncThunk(
+	"assignments/getSubmittedAssignments",
+	async ({ id},thunkApi) => {
+		try {
+			const config = {
+				headers: {
+					"Content-type": "multipart/form-data",
+					Authorization: `Bearer ${localStorage.getItem(
+						"study-auth"
+					)}`,
+				},
+			};
+
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_API_URL}/assignments/${id}`,
+				config
+			);
+
+			return res.data;
+		} catch (error) {
+			return thunkApi.rejectWithValue(error.response.data.message);
+		}
+	}
+);
+
 export const universitySlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {},
+	reducers: {
+		setAssignmentId(state, action) {
+			state.id = action.payload
+		},
+		setAssignmentSuccess(state, action) {
+			state.success = action.payload
+		},
+		setAssignmentError(state, action) {
+			state.error = action.payload
+		}
+	},
 	extraReducers(builder) {
 		builder.addCase(get_my_assignments.pending, (state) => {
 			state.isloading = true;
@@ -134,10 +198,34 @@ export const universitySlice = createSlice({
 			state.isloading = false;
 			state.error = action.payload;
 		});
+
+		builder.addCase(submit_assignments.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(submit_assignments.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.success = actions.payload.success
+		});
+		builder.addCase(submit_assignments.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
+
+		builder.addCase(get_submitted_assignments.pending, (state) => {
+			state.isloading = true;
+		});
+		builder.addCase(get_submitted_assignments.fulfilled, (state, actions) => {
+			state.isloading = false;
+			state.assignments = actions.payload
+		});
+		builder.addCase(get_submitted_assignments.rejected, (state, action) => {
+			state.isloading = false;
+			state.error = action.payload;
+		});
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const {} = universitySlice.actions;
+export const { setAssignmentId, setAssignmentError, setAssignmentSuccess } = universitySlice.actions;
 
 export default universitySlice.reducer;
