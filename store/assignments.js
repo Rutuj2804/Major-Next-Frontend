@@ -11,7 +11,7 @@ const initialState = {
 
 export const get_my_assignments = createAsyncThunk(
 	"assignments/getMyAssignments",
-	async (thunkApi) => {
+	async (_,thunkApi) => {
 		try {
 			const config = {
 				headers: {

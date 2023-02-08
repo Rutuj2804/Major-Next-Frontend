@@ -2,15 +2,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-	notes: [],
+	events: [],
 	isloading: false,
+	id: "",
+	id: null,
 	error: "",
 	success: "",
 };
 
-export const post_notes_to_a_subject = createAsyncThunk(
-	"notes/postNotesToSubject",
-	async ({ id, subjectId, files }, thunkApi) => {
+export const post_events = createAsyncThunk(
+	"events/postEvent",
+	async ({ title, files, description, university }, thunkApi) => {
 		try {
 			const config = {
 				headers: {
@@ -22,12 +24,15 @@ export const post_notes_to_a_subject = createAsyncThunk(
 			};
 
 			const formData = new FormData();
+			formData.append("title", title);
+			formData.append("description", description);
+			formData.append("university", university);
 			for (let i = 0; i < files.length; i++) {
 				formData.append("files", files[i]);
 			}
 
 			const res = await axios.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/class/add_notes/${id}/${subjectId}`,
+				`${process.env.NEXT_PUBLIC_API_URL}/events/create`,
 				formData,
 				config
 			);
@@ -39,13 +44,13 @@ export const post_notes_to_a_subject = createAsyncThunk(
 	}
 );
 
-export const get_all_notes_for_me = createAsyncThunk(
-	"notes/getAllNotesForMe",
-	async (_,thunkApi) => {
+export const get_events = createAsyncThunk(
+	"events/getEvent",
+	async ({ id }, thunkApi) => {
 		try {
 			const config = {
 				headers: {
-					"Content-type": "application/json",
+					"Content-type": "multipart/form-data",
 					Authorization: `Bearer ${localStorage.getItem(
 						"study-auth"
 					)}`,
@@ -53,7 +58,7 @@ export const get_all_notes_for_me = createAsyncThunk(
 			};
 
 			const res = await axios.get(
-				`${process.env.NEXT_PUBLIC_API_URL}/class/add_notes`,
+				`${process.env.NEXT_PUBLIC_API_URL}/events/${id}`,
 				config
 			);
 
@@ -64,24 +69,21 @@ export const get_all_notes_for_me = createAsyncThunk(
 	}
 );
 
-export const delete_notes = createAsyncThunk(
-	"notes/deleteNotes",
-	async (id, thunkApi) => {
+export const delete_events = createAsyncThunk(
+	"events/deleteEvent",
+	async ({ id }, thunkApi) => {
 		try {
 			const config = {
 				headers: {
-					"Content-type": "application/json",
+					"Content-type": "multipart/form-data",
 					Authorization: `Bearer ${localStorage.getItem(
 						"study-auth"
 					)}`,
 				},
 			};
 
-			const body = JSON.stringify({ id });
-
-			const res = await axios.put(
-				`${process.env.NEXT_PUBLIC_API_URL}/class/add_notes`,
-				body,
+			const res = await axios.delete(
+				`${process.env.NEXT_PUBLIC_API_URL}/events/${id}`,
 				config
 			);
 
@@ -95,40 +97,51 @@ export const delete_notes = createAsyncThunk(
 export const universitySlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {},
+	reducers: {
+		setEventsSuccess(state, action) {
+			state.success = action.payload;
+		},
+		setEventsError(state, action) {
+			state.error = action.payload;
+		},
+	},
 	extraReducers(builder) {
-		builder.addCase(post_notes_to_a_subject.pending, (state) => {
+		builder.addCase(post_events.pending, (state) => {
 			state.isloading = true;
 		});
-		builder.addCase(post_notes_to_a_subject.fulfilled, (state, actions) => {
+		builder.addCase(post_events.fulfilled, (state, actions) => {
 			state.isloading = false;
-			state.notes = [...state.notes, ...actions.payload];
+			state.events = [actions.payload, ...state.events];
+			state.success = "Successfully posted a Event";
 		});
-		builder.addCase(post_notes_to_a_subject.rejected, (state, action) => {
+		builder.addCase(post_events.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-		builder.addCase(get_all_notes_for_me.pending, (state) => {
+		builder.addCase(get_events.pending, (state) => {
 			state.isloading = true;
 		});
-		builder.addCase(get_all_notes_for_me.fulfilled, (state, actions) => {
+		builder.addCase(get_events.fulfilled, (state, actions) => {
 			state.isloading = false;
-			state.notes = actions.payload;
+			state.events = actions.payload;
 		});
-		builder.addCase(get_all_notes_for_me.rejected, (state, action) => {
+		builder.addCase(get_events.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
 
-		builder.addCase(delete_notes.pending, (state) => {
+		builder.addCase(delete_events.pending, (state) => {
 			state.isloading = true;
 		});
-		builder.addCase(delete_notes.fulfilled, (state, actions) => {
+		builder.addCase(delete_events.fulfilled, (state, actions) => {
 			state.isloading = false;
-			state.notes = state.notes.filter(v=>!actions.payload.includes(v._id))
+			state.events = state.events.filter(
+				(v) => v._id !== actions.payload._id
+			);
+			state.success = "Successfully deleted a Event"
 		});
-		builder.addCase(delete_notes.rejected, (state, action) => {
+		builder.addCase(delete_events.rejected, (state, action) => {
 			state.isloading = false;
 			state.error = action.payload;
 		});
@@ -136,6 +149,6 @@ export const universitySlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = universitySlice.actions;
+export const { setEventsError, setEventsSuccess } = universitySlice.actions;
 
 export default universitySlice.reducer;

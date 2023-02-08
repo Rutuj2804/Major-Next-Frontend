@@ -24,6 +24,7 @@ import AddAssignment from "../components/popups/AddAssignment";
 import Success from "../components/report-messages/Success";
 import UploadAssignment from "../components/popups/UploadAssignment";
 import AddLecture from "../components/popups/AddLecture";
+import AddEvent from "../components/popups/AddEvent";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -41,7 +42,8 @@ const Layout = ({ children }) => {
 		useSelector((state) => state.subjects.isloading) |
 		useSelector((state) => state.notes.isloading) |
 		useSelector((state) => state.assignments.isloading) |
-		useSelector((state) => state.lecture.isloading) 
+		useSelector((state) => state.lecture.isloading) |
+		useSelector((state) => state.events.isloading);
 
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -59,6 +61,7 @@ const Layout = ({ children }) => {
 	}, [isAuthenticated]);
 
 	useEffect(() => {
+		if(university)
 		dispatch(get_my_role(university));
 	}, [university]);
 
@@ -88,6 +91,7 @@ const Layout = ({ children }) => {
 					{popup === CODES.ADD_ASSIGNMENTS && <AddAssignment />}
 					{popup === CODES.UPLOAD_ASSIGNMENTS && <UploadAssignment />}
 					{popup === CODES.ADD_LECTURE && <AddLecture />}
+					{popup === CODES.ADD_EVENT && <AddEvent />}
 				</div>
 			) : null}
 

@@ -8,6 +8,7 @@ import subjects from "./subjects"
 import notes from "./notes"
 import assignments from "./assignments"
 import lecture from "./lecture"
+import events from "./events"
 
 export const reducer = combineReducers({
     settings,
@@ -19,4 +20,5 @@ export const reducer = combineReducers({
     notes,
     assignments,
     lecture,
+    events,
 })

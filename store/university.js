@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { CODES } from "../assets/data/popup";
+import { setPopup } from "./settings";
 
 const initialState = {
 	universities: [],
@@ -13,7 +15,7 @@ const initialState = {
 
 export const get_all_universities = createAsyncThunk(
 	"university/getAll",
-	async (thunkApi) => {
+	async (_,thunkApi) => {
 		try {
 			const config = {
 				headers: {
@@ -26,6 +28,8 @@ export const get_all_universities = createAsyncThunk(
 				`${process.env.NEXT_PUBLIC_API_URL}/user/universities`,
 				config
 			);
+
+			if(res.data.length === 0) thunkApi.dispatch(setPopup(CODES.CREATE_UNIVERISTY))
 
 			return res.data;
 		} catch (error) {
