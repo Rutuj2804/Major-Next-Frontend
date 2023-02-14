@@ -5,7 +5,6 @@ const initialState = {
 	events: [],
 	isloading: false,
 	id: "",
-	id: null,
 	error: "",
 	success: "",
 };

@@ -72,6 +72,7 @@ const Sidebar = () => {
 	];
 
 	useEffect(() => {
+		console.log(myRole.classes !== 2 && generalLinks.findIndex(v=>v.link === "/classes") === -1);
 		if (myRole) {
 			if (myRole.subjects !== 2 && generalLinks.findIndex(v=>v.link === "/subjects") === -1) {
 				generalLinks.push({
@@ -94,7 +95,7 @@ const Sidebar = () => {
 					link: "/faculties",
 				});
 			}
-			if (myRole.classes !== 2 && generalLinks.findIndex(v=>v.link === "/classes") === -1) {
+			if (myRole.class !== 2 && generalLinks.findIndex(v=>v.link === "/classes") === -1) {
 				generalLinks.push({
 					name: "Classes",
 					icon: <UsersIcon className="h-5 w-5" />,
@@ -109,11 +110,12 @@ const Sidebar = () => {
 				});
 			}
 			if (myRole.assignments !== 2 && generalLinks.findIndex(v=>v.link === "/assignments") === -1) {
-				generalLinks.push({
+				setGeneralLinks([...generalLinks, {
 					name: "Assignments",
 					icon: <CalendarDaysIcon className="h-5 w-5" />,
 					link: "/assignments",
-				});
+				}])
+				// generalLinks.push();
 			}
 			if (myRole.roles !== 2 && generalLinks.findIndex(v=>v.link === "/roles") === -1 && generalLinks.findIndex(v=>v.link === "/roles/assign") === -1) {
 				generalLinks.push(

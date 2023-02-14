@@ -7,7 +7,7 @@ const Cards = ({ count, name, percentage, isDown, icon }) => {
             <div className='left'>
                 <h4>{count}</h4>
                 <h6>{name}</h6>
-                <p>{isDown ? <span className='text-red-500'><BsCaretDownFill /> {isDown ? "-": "+"}{percentage}%</span> :<span className='text-green-500'><BsCaretUpFill /> {isDown ? "-": "+"}{percentage}%</span>} from past month</p>
+                <p><span className='text-green-500'><BsCaretUpFill /></span> from your university</p>
             </div>
             <div className='right'>
                 {icon}

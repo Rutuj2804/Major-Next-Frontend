@@ -1,9 +1,9 @@
 import { ResponsiveLine } from "@nivo/line";
 import { data } from "../../assets/data/linechart";
 
-const MyResponsiveLine = () => (
+const MyResponsiveLine = ({ data_sent }) => (
     <ResponsiveLine
-        data={data}
+        data={data_sent || data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: "point" }}
         yScale={{
@@ -22,7 +22,7 @@ const MyResponsiveLine = () => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "transportation",
+            legend: "months",
             legendOffset: 36,
             legendPosition: "middle",
         }}

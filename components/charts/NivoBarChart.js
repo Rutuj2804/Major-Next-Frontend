@@ -2,18 +2,13 @@ import { ResponsiveBar } from '@nivo/bar'
 import { data } from '../../assets/data/barchart'
 
 
-const MyResponsiveBar = ({ layout }) => (
+const MyResponsiveBar = ({ layout, data_sent }) => (
     <ResponsiveBar
-        data={data}
+        data={data_sent || data}
         keys={[
-            'hot dog',
-            'burger',
-            'sandwich',
-            'kebab',
-            'fries',
-            'donut'
+            'lecture',
         ]}
-        indexBy="country"
+        indexBy="_id"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.55}
         layout={layout || "vertical"}
@@ -43,13 +38,13 @@ const MyResponsiveBar = ({ layout }) => (
         fill={[
             {
                 match: {
-                    id: 'fries'
+                    id: 'lecture'
                 },
-                id: 'dots'
+                id: 'lines'
             },
             {
                 match: {
-                    id: 'sandwich'
+                    id: 'lecture'
                 },
                 id: 'lines'
             }
@@ -69,7 +64,7 @@ const MyResponsiveBar = ({ layout }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'country',
+            legend: 'Month',
             legendPosition: 'middle',
             legendOffset: 32
         }}
@@ -77,7 +72,7 @@ const MyResponsiveBar = ({ layout }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'food',
+            legend: 'Lectures',
             legendPosition: 'middle',
             legendOffset: -40
         }}
@@ -118,7 +113,7 @@ const MyResponsiveBar = ({ layout }) => (
         ]}
         role="application"
         ariaLabel="Nivo bar chart demo"
-        barAriaLabel={function(e){return e.id+": "+e.formattedValue+" in country: "+e.indexValue}}
+        barAriaLabel={function(e){return e.id+": "+e.formattedValue+" in month: "+e.indexValue}}
     />
 )
 

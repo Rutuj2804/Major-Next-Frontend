@@ -6,7 +6,15 @@ const initialState = {
 	assigned: [],
 	role: {
 		roles: {
-			name: ""
+			name: "",
+			students: 2,
+			faculty: 2,
+			class: 2,
+			subjects: 2,
+			events: 2,
+			utilities: 2,
+			assignments: 2,
+			roles: 2,
 		}
 	},
 	isloading: false,
