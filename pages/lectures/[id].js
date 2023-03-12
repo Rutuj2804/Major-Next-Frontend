@@ -60,7 +60,7 @@ const LectureSingle = () => {
     useEffect(()=>{
         dispatch(get_single_lecture({ id }))
     }, [id])
-
+console.log(lecture.file);
 	return (
 		<div className="watch__ContainerWrapper">
 			<Head>

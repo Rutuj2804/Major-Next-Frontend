@@ -10,6 +10,7 @@ import assignments from "./assignments"
 import lecture from "./lecture"
 import events from "./events"
 import analytics from "./analytics"
+import chat from "./chat"
 
 export const reducer = combineReducers({
     settings,
@@ -23,4 +24,5 @@ export const reducer = combineReducers({
     lecture,
     events,
     analytics,
+    chat,
 })

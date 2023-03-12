@@ -1,17 +1,24 @@
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Inbox from '../../components/messaging/Inbox'
 import MessageArea from '../../components/messaging/MessageArea'
+import { get_rooms } from '../../store/chat'
 import { setHeader } from "../../store/settings"
 
 const Messaging = () => {
 
     const dispatch = useDispatch()
 
+    const chat_rooms = useSelector(state=>state.chat.rooms)
+
     useEffect(()=>{
         dispatch(setHeader("Messaging"))
     }, [dispatch])
+
+    useEffect(()=>{
+        dispatch(get_rooms())
+    }, [])
 
     return (
         <div>

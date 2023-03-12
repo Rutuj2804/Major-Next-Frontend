@@ -1,6 +1,9 @@
 import { Avatar, IconButton } from "@mui/material";
 import React from "react";
-import { EllipsisVerticalIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../store/settings";
+import { CODES } from "../../assets/data/popup"
 
 const Contact = ({ notifications }) => {
     return (
@@ -20,11 +23,14 @@ const Contact = ({ notifications }) => {
 };
 
 const Inbox = () => {
+
+    const dispatch = useDispatch()
+
     return (
         <div className="inbox__Wrapper">
             <div className="top">
                 <h4>Inbox</h4>
-                <IconButton>
+                <IconButton onClick={()=>dispatch(setPopup(CODES.ADD_GROUP))}>
                     <PencilSquareIcon className="h-6 w-6 text-black" />
                 </IconButton>
             </div>

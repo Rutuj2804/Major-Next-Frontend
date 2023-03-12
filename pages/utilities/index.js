@@ -133,7 +133,7 @@ const Utilities = () => {
 			headerAlign: "center",
 			renderCell: (params) => (
 				<>
-					<Link href={`/assignments`}>
+					<Link href={`${process.env.NEXT_PUBLIC_API_URL + '/' + params.row.file}`} download onClick={e=>e.preventDefault()}>
 						<Button className="table-buttons">Download</Button>
 					</Link>
 				</>

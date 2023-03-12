@@ -25,6 +25,7 @@ import Success from "../components/report-messages/Success";
 import UploadAssignment from "../components/popups/UploadAssignment";
 import AddLecture from "../components/popups/AddLecture";
 import AddEvent from "../components/popups/AddEvent";
+import AddGroups from "../components/popups/AddGroups";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -92,6 +93,7 @@ const Layout = ({ children }) => {
 					{popup === CODES.UPLOAD_ASSIGNMENTS && <UploadAssignment />}
 					{popup === CODES.ADD_LECTURE && <AddLecture />}
 					{popup === CODES.ADD_EVENT && <AddEvent />}
+					{popup === CODES.ADD_GROUP && <AddGroups />}
 				</div>
 			) : null}
 

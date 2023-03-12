@@ -77,8 +77,8 @@ const AssignmentsSubmissions = () => {
 			headerAlign: "center",
 			renderCell: (params) => (
 				<>
-					<Link href={`/assignments`}>
-						<Button className="table-buttons">Download</Button>
+					<Link href={`${process.env.NEXT_PUBLIC_API_URL + '/' + params.row.file}`} target="_blank">
+						<Button className="table-buttons bg-green-500">Open</Button>
 					</Link>
 				</>
 			),
