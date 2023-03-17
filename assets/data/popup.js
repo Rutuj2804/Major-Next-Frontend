@@ -17,4 +17,6 @@ export const CODES = {
     "ADD_EVENT": "ADD_EVENT",
     "ADD_GROUP": "ADD_GROUP",
     "ADD_CONTACT": "ADD_CONTACT",
+    "ADD_RESULTS": "ADD_RESULTS",
+    "SHOW_RESULTS": "SHOW_RESULTS",
 }

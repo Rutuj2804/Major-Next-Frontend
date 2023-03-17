@@ -26,6 +26,8 @@ import UploadAssignment from "../components/popups/UploadAssignment";
 import AddLecture from "../components/popups/AddLecture";
 import AddEvent from "../components/popups/AddEvent";
 import AddGroups from "../components/popups/AddGroups";
+import AddResults from "../components/popups/AddResults";
+import DisplayResult from "../components/popups/DisplayResult";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -44,7 +46,10 @@ const Layout = ({ children }) => {
 		useSelector((state) => state.notes.isloading) |
 		useSelector((state) => state.assignments.isloading) |
 		useSelector((state) => state.lecture.isloading) |
-		useSelector((state) => state.events.isloading);
+		useSelector((state) => state.events.isloading) |
+		useSelector((state) => state.analytics.isloading) |
+		useSelector((state) => state.chat.isloading) |
+		useSelector((state) => state.results.isloading);
 
 	const dispatch = useDispatch();
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -94,6 +99,8 @@ const Layout = ({ children }) => {
 					{popup === CODES.ADD_LECTURE && <AddLecture />}
 					{popup === CODES.ADD_EVENT && <AddEvent />}
 					{popup === CODES.ADD_GROUP && <AddGroups />}
+					{popup === CODES.ADD_RESULTS && <AddResults />}
+					{popup === CODES.SHOW_RESULTS && <DisplayResult />}
 				</div>
 			) : null}
 

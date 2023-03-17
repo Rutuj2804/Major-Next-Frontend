@@ -51,19 +51,19 @@ const FacultyStudents = () => {
 		{
 			field: "first_name",
 			headerName: "First name",
-			width: 200,
+			flex: 1,
 			disableColumnMenu: true,
 		},
 		{
 			field: "last_name",
 			headerName: "Last name",
-			width: 200,
+			flex: 1,
 			disableColumnMenu: true,
 		},
 		{
 			field: "email",
 			headerName: "Email",
-			width: 300,
+			flex: 1,
 			disableColumnMenu: true,
 		},
 		{

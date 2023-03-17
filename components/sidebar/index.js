@@ -2,12 +2,22 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Logo from "../logo";
 import {
+	AcademicCapIcon,
+	BanknotesIcon,
+	BoltIcon,
 	CalendarDaysIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
+	FolderIcon,
 	HeartIcon,
 	PaperAirplaneIcon,
+	PlayIcon,
+	RectangleStackIcon,
+	ShieldCheckIcon,
+	Square2StackIcon,
+	Square3Stack3DIcon,
 	Squares2X2Icon,
+	UserGroupIcon,
 	UsersIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
@@ -44,7 +54,7 @@ const Sidebar = () => {
 		},
 		{
 			name: "Lectures",
-			icon: <Squares2X2Icon className="h-5 w-5" />,
+			icon: <PlayIcon className="h-5 w-5" />,
 			link: "/lectures",
 		},
 	]);
@@ -69,6 +79,16 @@ const Sidebar = () => {
 				},
 			],
 		},
+		{
+			name: "Miscellaneous",
+			links: [
+				{
+					name: "Fees",
+					icon: <BanknotesIcon className="h-5 w-5" />,
+					link: "/fees",
+				},
+			],
+		},
 	];
 
 	useEffect(() => {
@@ -77,42 +97,42 @@ const Sidebar = () => {
 			if (myRole.subjects !== 2 && generalLinks.findIndex(v=>v.link === "/subjects") === -1) {
 				generalLinks.push({
 					name: "Subjects",
-					icon: <UsersIcon className="h-5 w-5" />,
+					icon: <Square2StackIcon className="h-5 w-5" />,
 					link: "/subjects",
 				});
 			}
 			if (myRole.students !== 2 && generalLinks.findIndex(v=>v.link === "/students") === -1) {
 				generalLinks.push({
 					name: "Students",
-					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					icon: <UserGroupIcon className="h-5 w-5" />,
 					link: "/students",
 				});
 			}
 			if (myRole.faculty !== 2 && generalLinks.findIndex(v=>v.link === "/faculties") === -1) {
 				generalLinks.push({
 					name: "Faculties",
-					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					icon: <UsersIcon className="h-5 w-5" />,
 					link: "/faculties",
 				});
 			}
 			if (myRole.class !== 2 && generalLinks.findIndex(v=>v.link === "/classes") === -1) {
 				generalLinks.push({
 					name: "Classes",
-					icon: <UsersIcon className="h-5 w-5" />,
+					icon: <RectangleStackIcon className="h-5 w-5" />,
 					link: "/classes",
 				});
 			}
 			if (myRole.utilities !== 2 && generalLinks.findIndex(v=>v.link === "/utilities") === -1) {
 				generalLinks.push({
 					name: "Utilities",
-					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					icon: <Square3Stack3DIcon className="h-5 w-5" />,
 					link: "/utilities",
 				});
 			}
 			if (myRole.assignments !== 2 && generalLinks.findIndex(v=>v.link === "/assignments") === -1) {
 				setGeneralLinks([...generalLinks, {
 					name: "Assignments",
-					icon: <CalendarDaysIcon className="h-5 w-5" />,
+					icon: <FolderIcon className="h-5 w-5" />,
 					link: "/assignments",
 				}])
 				// generalLinks.push();
@@ -121,15 +141,22 @@ const Sidebar = () => {
 				generalLinks.push(
 					{
 						name: "Roles",
-						icon: <CalendarDaysIcon className="h-5 w-5" />,
+						icon: <BoltIcon className="h-5 w-5" />,
 						link: "/roles",
 					},
 					{
 						name: "Roles Assigned",
-						icon: <CalendarDaysIcon className="h-5 w-5" />,
+						icon: <ShieldCheckIcon className="h-5 w-5" />,
 						link: "/roles/assign",
 					}
 				);
+			}
+			if(generalLinks.findIndex(v=>v.link === "/results") === -1){
+				generalLinks.push({
+					name: "Results",
+					icon: <AcademicCapIcon className="h-5 w-5" />,
+					link: "/results",
+				});
 			}
 		}
 	}, [myRole]);
@@ -155,6 +182,17 @@ const Sidebar = () => {
 					<div>
 						<span className="category">{sidebarData[1].name}</span>
 						{sidebarData[1].links.map((b, i) => (
+							<NavLink
+								key={i}
+								name={b.name}
+								icon={b.icon}
+								link={b.link}
+							/>
+						))}
+					</div>
+					<div>
+						<span className="category">{sidebarData[2].name}</span>
+						{sidebarData[2].links.map((b, i) => (
 							<NavLink
 								key={i}
 								name={b.name}

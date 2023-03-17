@@ -59,7 +59,7 @@ const Classes = () => {
 		{
 			field: "name",
 			headerName: "Class name",
-			width: 300,
+			flex: 1,
 			disableColumnMenu: true,
 		},
 		{

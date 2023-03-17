@@ -39,13 +39,13 @@ const Subjects = () => {
 		{
 			field: "name",
 			headerName: "Subject",
-			width: 300,
+			flex: 1,
 			disableColumnMenu: true,
 		},
 		{
 			field: "class",
 			headerName: "Class",
-			width: 200,
+			flex: 1,
 			disableColumnMenu: true,
 			renderCell: (params) => <>{params.row.class.name}</>,
 		},

@@ -70,6 +70,7 @@ const Events = () => {
 								time={moment(v.createdAt).format(
 									"MMMM Do YYYY, h:mm:ss a"
 								)}
+								files={v.files}
 								key={v._id}
 								id={v._id}
 							/>
