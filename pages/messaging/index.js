@@ -31,7 +31,7 @@ const Messaging = () => {
                         <Inbox />
                     </div>
                     <div className='messages col-span-4 md:col-span-2 lg:col-span-3'>
-                        <MessageArea />
+                        {/* <MessageArea /> */}
                     </div>
                 </div>
             </main>

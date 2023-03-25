@@ -6,31 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { create_rooms, get_users } from "../../store/chat";
 import { setPopup } from "../../store/settings";
 
-const AddGroups = () => {
-    const [name, setName] = useState("");
+const AddChat = () => {
     const [temporaryName, setTemporaryName] = useState("");
-    const [users, setUsers] = useState([]);
 
-	const [error, setError] = useState("")
+    const [error, setError] = useState("");
 
     const users_from_server = useSelector((state) => state.chat.users);
 
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-		const u = []
-		for (let i = 0; i < users.length; i++) {
-			u.push(users[i]._id)
-		}
-		if(users.length !== 0) {
-			dispatch(create_rooms({ name, router, users: u }));
-			setName("");
-			dispatch(setPopup(null));
-		} else {
-			setError("Group must have atleast 1 user")
-		}
+    const onSubmit = (t) => {
+        dispatch(create_rooms({ router, users: [t] }));
+        dispatch(setPopup(null));
+        setTemporaryName("");
+        setError("");
     };
 
     const handleChange = (e) => {
@@ -50,15 +40,6 @@ const AddGroups = () => {
             </div>
             <div className="bottom">
                 <form onSubmit={onSubmit}>
-                    <div className="inputDiv">
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                        <label>Group Name</label>
-                    </div>
                     <div className="selectBox">
                         <div className="inputDiv">
                             <input
@@ -73,11 +54,7 @@ const AddGroups = () => {
                                 {users_from_server.map((u) => (
                                     <div
                                         key={u._id}
-                                        onClick={() => {
-                                            setUsers((v) => [...v, u]);
-                                            setTemporaryName("");
-											setError("")
-                                        }}
+                                        onClick={() => onSubmit(u._id)}
                                     >
                                         {u.firstname + " " + u.lastname}
                                     </div>
@@ -85,30 +62,13 @@ const AddGroups = () => {
                             </div>
                         ) : null}
                     </div>
-					{
-						error ? <p className="text-red-500 mb-4">{error}</p> : null
-					}
-                    <div className="users__result">
-                        {users.map((v) => (
-                            <div className="box" key={v._id}>
-								<div className="left">
-									<Avatar />
-									<div className="user">
-										<h6>{v.firstname + " " + v.lastname}</h6>
-										<p>{v.email}</p>
-									</div>
-								</div>
-                                <span className="bg-red-500 cursor-pointer" onClick={()=>setUsers(t=>t.filter(x=>x._id !== v._id))}><XMarkIcon className="h-4 w-4 text-white" /></span>
-                            </div>
-                        ))}
-                    </div>
-                    <div>
-                        <Button type="submit">Create</Button>
-                    </div>
+                    {error ? (
+                        <p className="text-red-500 mb-4">{error}</p>
+                    ) : null}
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddGroups;
+export default AddChat;

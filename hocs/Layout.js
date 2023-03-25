@@ -28,6 +28,7 @@ import AddEvent from "../components/popups/AddEvent";
 import AddGroups from "../components/popups/AddGroups";
 import AddResults from "../components/popups/AddResults";
 import DisplayResult from "../components/popups/DisplayResult";
+import AddChat from "../components/popups/AddChat";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -101,6 +102,7 @@ const Layout = ({ children }) => {
 					{popup === CODES.ADD_GROUP && <AddGroups />}
 					{popup === CODES.ADD_RESULTS && <AddResults />}
 					{popup === CODES.SHOW_RESULTS && <DisplayResult />}
+					{popup === CODES.ADD_CHAT && <AddChat />}
 				</div>
 			) : null}
 

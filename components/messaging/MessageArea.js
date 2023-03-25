@@ -1,28 +1,9 @@
 import { EllipsisVerticalIcon, PaperAirplaneIcon, PaperClipIcon } from "@heroicons/react/24/solid";
 import { Avatar, Button, IconButton } from "@mui/material";
-import React from "react";
-
-const messageData = [
-    { message: "Heyy!! How are you doing??", isOwner: false },
-    { message: "Heyy!! I am good", isOwner: true },
-    { message: "How are you doing??", isOwner: true },
-    { message: "I am also doing good", isOwner: false },
-    { message: "Are you in town or somewhere else", isOwner: false },
-    { message: "No, I am in town ... Working from home nowadays", isOwner: false },
-    { message: "Where have you been from such a long time??", isOwner: false },
-    { message: "Well I was quite busy with my schedule", isOwner: true },
-    { message: "Attending too many meetings lately", isOwner: true },
-    { message: "Well I am also facing a lot of work load", isOwner: false },
-    { message: "Well I have a surprise for you", isOwner: true },
-    { message: "Well I am excited!!", isOwner: false },
-    { message: "What is it?", isOwner: false },
-    { message: "I don't want to tell you like this", isOwner: true },
-    { message: "I want to meet you physically to tell you", isOwner: true },
-    { message: "Lets meet today at cafe if you are free??", isOwner: false },
-    { message: "Sure!! why not", isOwner: true },
-    { message: "Ok then 8:00pm at cafe", isOwner: false },
-    { message: "Done!!", isOwner: true },
-]
+import moment from "moment/moment";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { send_message } from "../../store/chat";
 
 const Message = ({ isOwner, message }) => {
     return (
@@ -34,15 +15,25 @@ const Message = ({ isOwner, message }) => {
     );
 };
 
-const MessageArea = () => {
+const MessageArea = ({ id, messages, title, me, updatedAt }) => {
+
+    const [message, setMessage] = useState("")
+
+    const dispatch = useDispatch()
+
+    const onSubmit = e => {
+        e.preventDefault()
+        dispatch(send_message({ text: message, id: id }))
+    }
+
     return (
         <div className="messageArea__Wrapper">
             <div className="top">
                 <div className="left">
                     <Avatar />
                     <div className="user">
-                        <h4>Rutuj Jeevan Bokade</h4>
-                        <p>last seen 2 days ago</p>
+                        <h4>{title}</h4>
+                        <p>last message {moment(updatedAt).fromNow()}</p>
                     </div>
                 </div>
                 <div className="right">
@@ -53,13 +44,13 @@ const MessageArea = () => {
             </div>
             <hr />
             <div className="messageArea__Display">
-                {messageData.map((m,i)=><Message key={i} isOwner={m.isOwner} message={m.message} />)}
+                {messages?.map((m)=><Message key={m._id} isOwner={m.sender === me} message={m.text} />)}
             </div>
             <hr />
             <div className="messageArea__Text">
-                <form>
+                <form onSubmit={onSubmit}>
                     <div>
-                        <input placeholder="Write a message..." required />
+                        <input placeholder="Write a message..." required value={message} onChange={e=>setMessage(e.target.value)} />
                         <IconButton>
                             <PaperClipIcon className="h-5 w-5 text-black" />
                         </IconButton>
