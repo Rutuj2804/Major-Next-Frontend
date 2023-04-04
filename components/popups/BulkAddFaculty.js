@@ -49,7 +49,7 @@ const BulkAddFaculty = () => {
 						{
 							isDragActive ?
 							<p>Drop the .csv file here ...</p> :
-							<p>Drag 'n' drop .csv file here, or click to select file</p>
+							<p>Drag &apos;n&apos; drop .csv file here, or click to select file</p>
 						}
 					</div>
 					<div className="inputDiv">

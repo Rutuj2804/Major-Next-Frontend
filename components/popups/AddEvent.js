@@ -71,7 +71,7 @@ const AddEvent = () => {
 							<p>Drop the .csv file here ...</p>
 						) : (
 							<p>
-								Drag 'n' drop .csv file here, or click to select
+								Drag &apos;n&apos; drop .csv file here, or click to select
 								file
 							</p>
 						)}
