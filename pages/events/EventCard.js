@@ -26,7 +26,7 @@ const EventCard = ({ title, description, user, time, id, files }) => {
                 <h4>{title}</h4>
                 <p>{description}</p>
                 {
-                    files.map((f, i)=><Image key={i} src={`${process.env.NEXT_PUBLIC_API_URL + '/' + f}`} alt="post" width={300} height={400} />)
+                    files?.map((f, i)=><Image key={i} src={`${process.env.NEXT_PUBLIC_API_URL + '/' + f}`} alt="post" width={300} height={400} />)
                 }
                 
             </div>
