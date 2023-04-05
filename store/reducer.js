@@ -12,6 +12,7 @@ import events from "./events"
 import analytics from "./analytics"
 import chat from "./chat"
 import results from "./results"
+import fees from "./fees"
 
 export const reducer = combineReducers({
     settings,
@@ -27,4 +28,5 @@ export const reducer = combineReducers({
     analytics,
     chat,
     results,
+    fees,
 })

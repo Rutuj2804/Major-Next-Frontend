@@ -20,4 +20,5 @@ export const CODES = {
     "ADD_CONTACT": "ADD_CONTACT",
     "ADD_RESULTS": "ADD_RESULTS",
     "SHOW_RESULTS": "SHOW_RESULTS",
+    "DEMAND_FEES": "DEMAND_FEES",
 }
