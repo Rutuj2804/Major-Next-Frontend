@@ -30,6 +30,8 @@ import AddResults from "../components/popups/AddResults";
 import DisplayResult from "../components/popups/DisplayResult";
 import AddChat from "../components/popups/AddChat";
 import DemandFees from "../components/popups/DemandFees";
+import AddAttendence from "../components/popups/AddAttendence";
+import OpenAttendence from "../components/popups/OpenAttendence";
 
 const Layout = ({ children }) => {
 	const sidebar = useSelector((state) => state.settings.sidebar);
@@ -105,6 +107,8 @@ const Layout = ({ children }) => {
 					{popup === CODES.SHOW_RESULTS && <DisplayResult />}
 					{popup === CODES.ADD_CHAT && <AddChat />}
 					{popup === CODES.DEMAND_FEES && <DemandFees />}
+					{popup === CODES.ADD_ATTENDENCE && <AddAttendence />}
+					{popup === CODES.OPEN_ATTENDENCE && <OpenAttendence />}
 				</div>
 			) : null}
 

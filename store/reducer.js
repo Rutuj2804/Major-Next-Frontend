@@ -13,6 +13,7 @@ import analytics from "./analytics"
 import chat from "./chat"
 import results from "./results"
 import fees from "./fees"
+import attendence from "./attendence"
 
 export const reducer = combineReducers({
     settings,
@@ -29,4 +30,5 @@ export const reducer = combineReducers({
     chat,
     results,
     fees,
+    attendence,
 })

@@ -59,7 +59,7 @@ const AddNotes = () => {
 	return (
 		<div className="addClass__Wrapper" onClick={(e) => e.stopPropagation()}>
 			<div className="top">
-				<h4>Add Notes</h4>
+				<h4>Add Utilities</h4>
 				<IconButton onClick={() => dispatch(setPopup(null))}>
 					<XMarkIcon className="h-5 w-5 text-black" />
 				</IconButton>
@@ -102,7 +102,7 @@ const AddNotes = () => {
 						</select>
 					</div>
 					<div>
-						<Button type="submit">Add student</Button>
+						<Button type="submit">Add Utilities</Button>
 					</div>
 				</form>
 			</div>

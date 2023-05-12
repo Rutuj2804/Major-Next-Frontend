@@ -33,7 +33,7 @@ const AddChat = () => {
     return (
         <div className="addClass__Wrapper" onClick={(e) => e.stopPropagation()}>
             <div className="top">
-                <h4>Add Group</h4>
+                <h4>Add Chat</h4>
                 <IconButton onClick={() => dispatch(setPopup(null))}>
                     <XMarkIcon className="h-5 w-5 text-black" />
                 </IconButton>

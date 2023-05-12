@@ -75,28 +75,15 @@ const Classes = () => {
 			disableColumnMenu: true,
 		},
 		{
-			field: "assignments",
-			headerName: "Assignments",
+			field: "attendence",
+			headerName: "Attendence",
 			width: 200,
 			disableColumnMenu: true,
 			align: "center",
 			headerAlign: "center",
 			renderCell: (params) => (
-				<Link href={`/assignments/${params.row.id}`}>
-					<Button className="table-buttons">Assignments</Button>
-				</Link>
-			),
-		},
-		{
-			field: "notes",
-			headerName: "Notes",
-			width: 200,
-			disableColumnMenu: true,
-			align: "center",
-			headerAlign: "center",
-			renderCell: (params) => (
-				<Link href={`/utilities/${params.row.id}`}>
-					<Button className="table-buttons">Notes</Button>
+				<Link href={`/attendence/${params.row.id}`}>
+					<Button className="table-buttons">Attendence</Button>
 				</Link>
 			),
 		},

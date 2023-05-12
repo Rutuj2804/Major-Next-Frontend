@@ -81,8 +81,6 @@ export const create_class = createAsyncThunk(
 				config
 			);
 
-			router.push(`/classes/${res.data._id}`)
-
 			return res.data;
 		} catch (error) {
 			return thunkApi.rejectWithValue(error.response.data.message);
@@ -293,7 +291,7 @@ export const universitySlice = createSlice({
 		});
 		builder.addCase(create_class.fulfilled, (state, actions) => {
 			state.isloading = false;
-			state.class = actions.payload
+			state.classes = [...state.classes, actions.payload]
 		});
 		builder.addCase(create_class.rejected, (state, action) => {
 			state.isloading = false;

@@ -2,7 +2,7 @@
     background-color: $white;
     padding: 20px;
     border-radius: 5px;
-    width: 350px;
+    width: 550px;
     .top {
         display: flex;
         justify-content: space-between;
@@ -118,6 +118,30 @@
                 color: $white;
                 padding: 7px 20px;
             }
+        }
+    }
+    .area {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 7px;
+        .checkbox {
+            border-radius: 2px;
+            border: 1px solid $black;
+            padding: 7px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            p{
+                margin-right: 7px;
+                margin-bottom: 0%;
+            }
+        }
+        button {
+            background-color: $primary;
+            text-transform: capitalize;
+            color: $white;
+            padding: 7px 20px;
         }
     }
 }

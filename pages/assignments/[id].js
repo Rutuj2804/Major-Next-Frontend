@@ -20,7 +20,7 @@ const valueGetter = (params) => {
 
 const AssignmentsSubmissions = () => {
 	const dispatch = useDispatch();
-	const assignments = useSelector((state) => state.assignments.assignments);
+	const assignments = useSelector((state) => state.assignments.submitted);
 
     const router = useRouter()
 
@@ -92,21 +92,6 @@ const AssignmentsSubmissions = () => {
 				<title>Assignments</title>
 			</Head>
 			<main>
-				<div className="flex justify-between items-center mt-4 breadcrumps">
-					<div>
-						
-					</div>
-					<div className="flex gap-4">
-						<Button
-							startIcon={
-								<PlusIcon className="h-5 w-5 text-white" />
-							}
-							onClick={() => dispatch(setPopup(CODES.ADD_ASSIGNMENTS))}
-						>
-							Add Assignment
-						</Button>
-					</div>
-				</div>
 				<div className="mt-4">
 					<Paper className="h-[850px]">
 						<DataGrid

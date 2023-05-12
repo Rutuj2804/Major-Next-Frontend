@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
 	assignments: [],
+	submitted: [],
 	isloading: false,
 	id: null,
 	error: "",
@@ -216,7 +217,7 @@ export const universitySlice = createSlice({
 		});
 		builder.addCase(get_submitted_assignments.fulfilled, (state, actions) => {
 			state.isloading = false;
-			state.assignments = actions.payload
+			state.submitted = actions.payload
 		});
 		builder.addCase(get_submitted_assignments.rejected, (state, action) => {
 			state.isloading = false;

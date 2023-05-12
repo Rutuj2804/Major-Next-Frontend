@@ -1,38 +1,31 @@
 import React from "react";
-// import Avatar from "@mui/material/Avatar";
-// import AvatarGroup from "@mui/material/AvatarGroup";
-import { Button } from "@mui/material";
-import { useRouter } from "next/router";
+import { IconButton } from "@mui/material";
+import { DeleteRounded } from "@mui/icons-material";
+import { FolderIcon, PlayIcon, Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
-const Cards = ({ name, id }) => {
-	const router = useRouter();
-
-	return (
-		<div
-			className="subjectsCards__Wrapper"
-			onClick={() => router.push(`/subjects/${id}`)}
-		>
-			<div className="header">
-				<h4>{name}</h4>
-				{/* <p>
-					Explore 4,819 design cards work, designs, illustrations, and
-					graphic elements. Explore 4,819 design cards work, designs,
-					illustrations, and graphic elements.
-				</p> */}
-			</div>
-			<div className="footer">
-				{/* <AvatarGroup max={4}>
-					<Avatar>AM</Avatar>
-					<Avatar>AZ</Avatar>
-					<Avatar>RJ</Avatar>
-					<Avatar>FM</Avatar>
-					<Avatar>FZ</Avatar>
-					<Avatar>RM</Avatar>
-				</AvatarGroup> */}
-				<Button>Open</Button>
-			</div>
-		</div>
-	);
+const SubjectCards = ({ name, classN, assignments, deleteA, notes, lectures }) => {
+    return (
+        <div className="subjectsCards__Wrapper">
+            <div className="top">
+                <div>
+                    <h4>{name}</h4>
+                    <p>{classN}</p>
+                </div>
+                <div>
+                    <IconButton className="text-red-500" onClick={deleteA}>
+                        <DeleteRounded />
+                    </IconButton>
+                </div>
+            </div>
+            <div className="bottom">
+                <div>
+                    <IconButton onClick={assignments}><FolderIcon className="h-5 w-5" /></IconButton>
+                    <IconButton onClick={notes}><Square3Stack3DIcon className="h-5 w-5" /></IconButton>
+                </div>
+                <IconButton onClick={lectures}><PlayIcon className="h-5 w-5" /></IconButton>
+            </div>
+        </div>
+    );
 };
 
-export default Cards;
+export default SubjectCards;
