@@ -16,7 +16,7 @@ const AssignmentsCard = ({ name, classN, deleteA, file, submit, submissions }) =
         <div className="subjectsCards__Wrapper">
             <div className="top">
                 <div>
-                    <h4>{name.slice(0, 25)}</h4>
+                    <h4>{name?.slice(0, 25)}</h4>
                     <p>{classN}</p>
                 </div>
                 <div>
