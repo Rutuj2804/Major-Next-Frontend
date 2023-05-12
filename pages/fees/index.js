@@ -3,14 +3,34 @@ import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CODES } from "../../assets/data/popup";
-import { setLectureId } from "../../store/lecture";
 import { setHeader, setPopup } from "../../store/settings";
-import { checkout } from "./checkout";
 import { get_fees_demand } from "../../store/fees";
 import Paper from "../../components/paper";
 import { DataGrid } from "@mui/x-data-grid";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import Head from "next/head";
+
+import { loadStripe } from "@stripe/stripe-js"
+
+async function checkout({ lineItems }) {
+    let stripePromise = null
+
+    const getStripe = () => {
+        if(!stripePromise){
+            stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+        }
+        return stripePromise
+    }
+
+    const stripe = await getStripe()
+
+    await stripe.redirectToCheckout({
+        mode: 'payment',
+        lineItems,
+        successUrl: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: window.location.origin,
+    })
+}
 
 const Fees = () => {
     const university = useSelector((state) => state.university.university._id);
